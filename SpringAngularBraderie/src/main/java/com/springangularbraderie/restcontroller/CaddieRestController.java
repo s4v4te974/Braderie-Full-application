@@ -41,21 +41,23 @@ public class CaddieRestController {
 	@Autowired
 	UserService hUserService;
 
-//	
-//	@DeleteMapping(path="/removeBDD")
-//	// récupère grâce  pathVariable l'idArticle 
-//	public void removeBDD(@RequestBody Panier p_panier) {
-//
-//		User hUser = p_panier.getUser();
-//		int idArticle = p_panier.getArticle().getIdArticle(); 
-//
-//		hPanierService.removeArticle(idArticle, hUser);
-//
-//		// Récupération de la liste de panier dans la BDD 
-//		List<Panier> listeCaddie = hPanierService.setPrixListPanier(hUser);	
-//
-//		Integer prixTotal = hPanierService.totalPanier(hUser.getIdUser());	
-//
-//	}
+	
+	@DeleteMapping(path="/removeArticle")
+	// récupère grâce  pathVariable l'idArticle 
+	public void removeBDD(@RequestBody Panier p_panier) {
+		
+		User hUser = p_panier.getUser();
+		int idArticle = p_panier.getArticle().getIdArticle(); 
+		
+		hPanierService.removeArticle(idArticle, hUser);
+
+		// Récupération de la liste de panier dans la BDD 
+		List<Panier> listeCaddie = hPanierService.setPrixListPanier(hUser);	
+
+		Integer prixTotal = hPanierService.totalPanier(hUser.getIdUser());	
+		
+		log.info("iDarticle supprimé : " + idArticle);
+
+	}
 
 }

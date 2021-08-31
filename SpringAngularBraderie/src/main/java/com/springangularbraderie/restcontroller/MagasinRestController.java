@@ -48,27 +48,28 @@ public class MagasinRestController {
 	public Article getArticleById(int idArticle) {
 
 		Article hArticle = hArticleService.getArticle(idArticle).get();
+		
+		log.info("Article ajouté : " + hArticle);
 
 		return hArticle;
 	}
 
 
+	
 	@PostMapping(path="/savePanier", consumes= "application/json")
-	public Panier savePanier(@RequestBody Panier p_panier) {
+	public List<Panier> savePanier(@RequestBody List<Panier> p_lPanier) {
 
-		User p_user = p_panier.getUser();
-		Article p_article= p_panier.getArticle();
-		
-		log.info("----------------user : " + p_user);
-		log.info("-------------article : " + p_article);
-		log.info("---------------quantité : " + p_panier.getQuantite());
+		for (Panier panier : p_lPanier) {	
+			User p_user = panier.getUser();
+			Article p_article= panier.getArticle();
+			hPanierService.insertArticle(p_user, p_article, panier.getQuantite());
+		}
+			
+		log.info("Panier sauvegardé : " + p_lPanier);	
 
-//		for (Panier panier : p_listPanier) {	
-			Panier hPanier =  hPanierService.insertArticle(p_user, p_article, p_panier.getQuantite());
-//		}
-
-		return hPanier;
+		return p_lPanier;
 	}
+
 
 
 	@DeleteMapping(path="/clear", consumes= "application/json")
@@ -82,7 +83,7 @@ public class MagasinRestController {
 		// Récupération de la liste de panier de la BDD (qui doit être vide)
 		List<Panier> listeCaddie = hPanierService.getListArticle(hUser.getIdUser());
 
-		log.info("Panier supprimé de la BDD, taille du panier : " + listeCaddie.size());
+		log.info("Panier supprimé, taille du panier : " + listeCaddie.size());
 	}
 
 
@@ -97,30 +98,9 @@ public class MagasinRestController {
 
 		Integer prixTotal = hPanierService.totalPanier(hUser.getIdUser());
 
+		log.info("Panier récupéré - taille du panier : " + listeCaddie.size() + ", du user : " + hUser);
+		
 		return listeCaddie;
-	}
-
-	
-	@GetMapping("/removeBDD/{id}")
-	// récupère grâce  pathVariable l'idArticle 
-	public String removeBDD(@PathVariable("id") int idArticle, Model model) {
-
-		log.info("idArticle à supprimer de la BDD " + idArticle);
-
-		User hUser= (User) session.getAttribute("user");
-
-		hPanierService.removeArticle(idArticle, hUser);
-
-		// Récupération de la liste de panier dans la BDD 
-		List<Panier> listeCaddie = hPanierService.setPrixListPanier(hUser);	
-
-		model.addAttribute("listPanier", listeCaddie);
-
-		Integer prixTotal = hPanierService.totalPanier(hUser.getIdUser());
-
-		model.addAttribute("prixTotal", prixTotal);
-
-		return "caddie";
 	}
 
 }
