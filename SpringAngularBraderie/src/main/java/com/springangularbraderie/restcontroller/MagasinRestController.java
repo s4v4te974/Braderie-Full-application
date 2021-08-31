@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Stephane Kouotze CDA7
  *
  */
+
 @Slf4j
 @RestController
 @RequestMapping("/magasin")
@@ -70,19 +72,21 @@ public class MagasinRestController {
 
 
 
-	@DeleteMapping(path="/clear", consumes= "application/json")
-	public void deleteCaddie(@RequestBody Panier p_panier) {
-		
-		User hUser= p_panier.getUser();
+	@DeleteMapping(path="/clear/{id}")
+    public void deleteCaddie(@PathVariable("id") int idUser) {
+        
+        // Suppression de la liste de panier du User dans la BDD
+        hPanierService.deleteAll(idUser);
 
-		// Suppression de la liste de panier du User dans la BDD
-		hPanierService.deleteAll(hUser.getIdUser());
+ 
 
-		// Récupération de la liste de panier de la BDD (qui doit être vide)
-		List<Panier> listeCaddie = hPanierService.getListArticle(hUser.getIdUser());
+        // Récupération de la liste de panier de la BDD (qui doit être vide)
+        List<Panier> listeCaddie = hPanierService.getListArticle(idUser);
 
-		log.info("Panier supprimé, taille du panier : " + listeCaddie.size());
-	}
+ 
+
+        log.info("Panier supprimé, taille du panier : " + listeCaddie.size());
+    }
 
 
 	

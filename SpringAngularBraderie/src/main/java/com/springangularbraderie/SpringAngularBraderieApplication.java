@@ -12,5 +12,4 @@ public class SpringAngularBraderieApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringAngularBraderieApplication.class, args);
 	}
-
 }

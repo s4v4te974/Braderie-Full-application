@@ -4,6 +4,8 @@
 package com.springangularbraderie.restcontroller;
 
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,14 +39,29 @@ public class UserRestController {
 	IArticleService hArticleService;
 	
 	
+//	@PostMapping(path="/user", produces= "application/json")
+//	public User getCurrentConnectUser(@RequestBody Map<String, String> json) {
+//		
+//		p_user = hUserService.enableTolog(p_user.getLogin(), p_user.getPass());
+//	
+//		log.info("user authentifié : " + p_user);
+//		
+//		return p_user;
+//	}
+
 	@PostMapping(path="/user", produces= "application/json")
-	public User getCurrentConnectUser(@RequestBody User p_user) {
+	public User getCurrentConnectUser(@RequestBody Map<String, String> json) {
 		
-		p_user = hUserService.enableTolog(p_user.getLogin(), p_user.getPass());
+		String username = json.get("username");
+		
+		String password = json.get("password");
+		
+		User p_user = hUserService.enableTolog(username, password);
 	
 		log.info("user authentifié : " + p_user);
 		
 		return p_user;
 	}
-
+	
+	
 }
