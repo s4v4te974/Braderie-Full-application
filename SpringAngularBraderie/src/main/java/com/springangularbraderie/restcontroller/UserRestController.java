@@ -52,30 +52,30 @@ public class UserRestController {
 //		return p_user;
 //	}
 
-//	@PostMapping(path="/user", produces= "application/json")
-//	public User getCurrentConnectUser(@RequestBody Map<String, String> json) {
-//		
-//		String login = json.get("login");
-//		
-//		String pass = json.get("pass");
-//		
-//		User p_user = hUserService.enableTolog(login, pass);
-//	
-//		log.info("user authentifié : " + p_user);
-//		
-//		return p_user;
-//	}
-	
-	
-	@GetMapping(path="/user", produces= "application/json")
-	public User getCurrentConnectUser(@RequestBody User p_user) {
+	@PostMapping(path="/user", produces= "application/json")
+	public User getCurrentConnectUser(@RequestBody Map<String, String> json) {
 		
-		p_user = hUserService.enableTolog(p_user.getLogin(), p_user.getPass());
+		String login = json.get("login");
+		
+		String pass = json.get("pass");
+		
+		User p_user = hUserService.enableTolog(login, pass);
 	
 		log.info("user authentifié : " + p_user);
 		
 		return p_user;
 	}
+	
+	
+//	@GetMapping(path="/user", produces= "application/json")
+//	public User getCurrentConnectUser(@RequestBody User p_user) {
+//		
+//		p_user = hUserService.enableTolog(p_user.getLogin(), p_user.getPass());
+//	
+//		log.info("user authentifié : " + p_user);
+//		
+//		return p_user;
+//	}
 	
 	
 }
