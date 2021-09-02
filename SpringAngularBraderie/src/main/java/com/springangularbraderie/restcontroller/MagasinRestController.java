@@ -44,6 +44,15 @@ public class MagasinRestController {
 
 	@Autowired
 	UserService hUserService;
+	
+	
+	@GetMapping(path="/getAllArticle", produces= "application/json")
+	public List<Article> getAllArticle() {
+
+		List<Article> lArticle = hArticleService.getAllArticle();
+
+		return lArticle;
+	}
 
 
 	@GetMapping(path="/getArticle", produces= "application/json")
