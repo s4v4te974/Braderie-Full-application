@@ -3,6 +3,7 @@
  */
 package com.springangularbraderie.restcontroller;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Map;
 
@@ -69,60 +70,24 @@ public class MagasinRestController {
 
 
 	
-//	@PostMapping(path="/savePanier", consumes= "application/json")
-//	public List<Panier> savePanier(@RequestBody List<Panier> p_lPanier) {
-//
-//		for (Panier panier : p_lPanier) {	
-//			User p_user = panier.getUser();
-//			Article p_article= panier.getArticle();
-//			hPanierService.insertArticle(p_user, p_article, panier.getQuantite());
-//		}
-//			
-//		log.info("Panier sauvegardé : " + p_lPanier);	
-//
-//		return p_lPanier;
-//	}
-	
 	@PostMapping(path="/savePanier", consumes= "application/json")
-	public List<Panier> savePanier(@RequestBody Map<String, Object> json) {
+	public List<Panier> savePanier(@RequestBody List<Panier> p_lPanier) {
+		
+		// Suppression de la liste de panier du User dans la BDD
+        hPanierService.deleteAll(p_lPanier.get(0).getUser().getIdUser());
 
-		List<Panier> lPanier = (List<Panier>) json.get("panierASauver");
-		
-		Integer idUser = (Integer) json.get("currentIdUser");
-		
-		// création de l'objet User à partir de l'idUser 
-		User hUser = hUserService.findByIdUser(idUser).get();
-		
-		
-		for (Panier hPanier : lPanier) {	
-			// création d'un article à partir de l'idArticle récupéré par le frontend
-			Article hArticle = hArticleService.getArticle(hPanier.getArticle().getIdArticle()).get();
-			
-			// insertion de la ligne de panier dans la BDD
-			hPanierService.insertArticle(hUser, hArticle, hPanier.getQuantite());
+        // Parcours la liste de panier pour l'insérer dans la bdd
+		for (Panier panier : p_lPanier) {	
+			User p_user = panier.getUser();
+			Article p_article= panier.getArticle();
+			hPanierService.insertArticle(p_user, p_article, panier.getQuantite());
 		}
 			
-		log.info("Panier sauvegardé : " + lPanier);	
+		log.info("Panier sauvegardé : " + p_lPanier);	
 
-		// /!\ RETOURNER UNE REPONSE/ STATUS AVEC UN TRY CATCH 
-		return lPanier;
+		return p_lPanier;
 	}
-
 	
-	@PostMapping(path="/user", produces= "application/json")
-	public User getCurrentConnectUser(@RequestBody Map<String, String> json) {
-		
-		String login = json.get("login");
-		
-		String pass = json.get("pass");
-		
-		User p_user = hUserService.enableTolog(login, pass);
-	
-		log.info("user authentifié : " + p_user);
-		
-		return p_user;
-	}
-
 
 	@DeleteMapping(path="/clear/{id}")
     public void deleteCaddie(@PathVariable("id") int idUser) {
@@ -130,12 +95,8 @@ public class MagasinRestController {
         // Suppression de la liste de panier du User dans la BDD
         hPanierService.deleteAll(idUser);
 
- 
-
         // Récupération de la liste de panier de la BDD (qui doit être vide)
         List<Panier> listeCaddie = hPanierService.getListArticle(idUser);
-
- 
 
         log.info("Panier supprimé, taille du panier : " + listeCaddie.size());
     }
