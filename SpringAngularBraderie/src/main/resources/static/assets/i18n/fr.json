@@ -1,0 +1,10 @@
+{
+  "ACCUEIL": {
+    "SELECT": "Sélectionner langue",
+    "LOGIN": "Identifiant",
+    "PASSWORD": "Mot de passe",
+    "TITLE": "Merci de vous connecter",
+    "BOUTON" : "Connexion",
+    "WELCOME" : "Bienvenue"
+  }
+}
