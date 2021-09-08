@@ -1,0 +1,17 @@
+{
+  "ACCUEIL": {
+    "SELECT": "Select language",
+    "LOGIN": "Login",
+    "PASSWORD": "Password",
+    "TITLE": "Please sign in",
+    "BOUTON" : "Sign in",
+    "WELCOME" : "Welcome"
+  },
+  "MAGASIN": {
+    "SELECT": "Select language",
+    "LOGIN": "Login",
+    "PASSWORD": "Password",
+    "TITLE": "Please sign in",
+    "BOUTON" : "Sign in"
+  }
+}
