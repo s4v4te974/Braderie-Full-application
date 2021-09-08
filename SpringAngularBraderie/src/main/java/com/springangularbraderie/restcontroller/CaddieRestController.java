@@ -4,7 +4,6 @@
 package com.springangularbraderie.restcontroller;
 
 import java.util.List;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,8 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 @CrossOrigin(origins ="*")
 public class CaddieRestController {
 	
-	@Autowired
-	HttpSession session;
 
 	@Autowired
 	ArticleService hArticleService;

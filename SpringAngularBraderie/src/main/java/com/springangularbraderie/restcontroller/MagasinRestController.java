@@ -3,11 +3,8 @@
  */
 package com.springangularbraderie.restcontroller;
 
-import java.io.Console;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,9 +32,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/magasin")
 @CrossOrigin(origins ="*")
 public class MagasinRestController {
-	
-	@Autowired
-	HttpSession session;
 
 	@Autowired
 	ArticleService hArticleService;
@@ -47,7 +41,6 @@ public class MagasinRestController {
 
 	@Autowired
 	UserService hUserService;
-	
 	
 	@GetMapping(path="/getAllArticle", produces= "application/json")
 	public List<Article> getAllArticle() {
@@ -68,8 +61,6 @@ public class MagasinRestController {
 		return hArticle;
 	}
 
-
-	
 	@PostMapping(path="/savePanier", consumes= "application/json")
 	public List<Panier> savePanier(@RequestBody List<Panier> p_lPanier) {
 		
@@ -88,7 +79,6 @@ public class MagasinRestController {
 		return p_lPanier;
 	}
 	
-
 	@DeleteMapping(path="/clear/{id}")
     public void deleteCaddie(@PathVariable("id") int idUser) {
         
@@ -100,8 +90,6 @@ public class MagasinRestController {
 
         log.info("Panier supprimé, taille du panier : " + listeCaddie.size());
     }
-
-
 	
 	@GetMapping(path="/getListPanier", produces= "application/json")
 	public List<Panier> restore(int idUser) {
