@@ -26,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/caddie")
 @CrossOrigin(origins ="*")
 public class CaddieRestController {
-	
 
 	@Autowired
 	ArticleService hArticleService;
@@ -55,7 +54,5 @@ public class CaddieRestController {
 		Integer prixTotal = hPanierService.totalPanier(hUser.getIdUser());	
 		
 		log.info("iDarticle supprimé : " + idArticle);
-
 	}
-
 }

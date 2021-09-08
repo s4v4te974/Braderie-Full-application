@@ -50,7 +50,6 @@ public class MagasinRestController {
 		return lArticle;
 	}
 
-
 	@GetMapping(path="/getArticle", produces= "application/json")
 	public Article getArticleById(int idArticle) {
 
