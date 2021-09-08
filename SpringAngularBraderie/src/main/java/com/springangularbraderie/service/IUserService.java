@@ -3,7 +3,7 @@
  */
 package com.springangularbraderie.service;
 
-import com.springangularbraderie.model.User;
+import com.springangularbraderie.model.Account;
 
 /**
  * @author dangs
@@ -11,8 +11,8 @@ import com.springangularbraderie.model.User;
  */
 public interface IUserService {
 	
-	User enableTolog(String login, String pass);
+	Account enableTolog(String login, String pass);
 
-
+	
 
 }

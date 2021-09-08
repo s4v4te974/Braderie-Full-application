@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.springangularbraderie.model.Article;
 import com.springangularbraderie.model.Panier;
-import com.springangularbraderie.model.User;
+import com.springangularbraderie.model.Account;
 import com.springangularbraderie.service.ArticleService;
 import com.springangularbraderie.service.PanierService;
 import com.springangularbraderie.service.UserService;
@@ -68,7 +68,7 @@ public class MagasinRestController {
 
         // Parcours la liste de panier pour l'insérer dans la bdd
 		for (Panier panier : p_lPanier) {	
-			User p_user = panier.getUser();
+			Account p_user = panier.getUser();
 			Article p_article= panier.getArticle();
 			hPanierService.insertArticle(p_user, p_article, panier.getQuantite());
 		}
@@ -90,10 +90,11 @@ public class MagasinRestController {
         log.info("Panier supprimé, taille du panier : " + listeCaddie.size());
     }
 	
+
 	@GetMapping(path="/getListPanier", produces= "application/json")
 	public List<Panier> restore(int idUser) {
 		
-		User hUser = hUserService.findByIdUser(idUser).get();
+		Account hUser = hUserService.findByIdUser(idUser).get();
 
 		// Récupération de la liste de panier dans la BDD 
 		List<Panier> listeCaddie = hPanierService.setPrixListPanier(hUser);	
@@ -105,5 +106,4 @@ public class MagasinRestController {
 		
 		return listeCaddie;
 	}
-
 }

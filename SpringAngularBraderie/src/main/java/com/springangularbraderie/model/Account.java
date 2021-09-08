@@ -18,7 +18,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="T_User_SPRING")
-public class User implements Serializable {
+public class Account implements Serializable {
     
     /**
      * 
@@ -38,10 +38,14 @@ public class User implements Serializable {
     @Column(nullable = false, length = 100)
     private int nbConnexion;
     
+    // ajout Spring Security
+    @Column(nullable = false, length = 10)
+    private String role;
+    
     /**
      * 
      */
-    public User() {
+    public Account() {
         // TODO Auto-generated constructor stub
     }
     
@@ -51,7 +55,7 @@ public class User implements Serializable {
      * @param pass
      * @param nbConnexion
      */
-    public User(int p_idUser, String p_login, String p_pass, int p_nbConnexion) {
+    public Account(int p_idUser, String p_login, String p_pass, int p_nbConnexion) {
         this.idUser = p_idUser;
         this.login = p_login;
         this.pass = p_pass;

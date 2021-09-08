@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springangularbraderie.model.User;
+import com.springangularbraderie.model.Account;
 import com.springangularbraderie.repository.IUserRep;
 
 
@@ -24,15 +24,15 @@ public class UserService implements IUserService{
 	IUserRep hUserRep;
 
 	@Override
-	public User enableTolog(String login, String pass) {
+	public Account enableTolog(String login, String pass) {
 		// TODO Gerer les exception
 		return hUserRep.getByLoginAndPass(login, pass);
 	}
 	
 	
-	public Optional<User> findByIdUser(int p_idUser) {
+	public Optional<Account> findByIdUser(int p_idUser) {
 		
-		Optional<User> hUser = null;
+		Optional<Account> hUser = null;
 		
 		hUser = hUserRep.findById(p_idUser);
 		

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springangularbraderie.model.User;
+import com.springangularbraderie.model.Account;
 import com.springangularbraderie.service.IArticleService;
 import com.springangularbraderie.service.IUserService;
 
@@ -41,13 +41,13 @@ public class UserRestController {
 	IArticleService hArticleService;
 
 	@PostMapping(path="/user", produces= "application/json")
-	public User getCurrentConnectUser(@RequestBody Map<String, String> json) {
+	public Account getCurrentConnectUser(@RequestBody Map<String, String> json) {
 		
 		String login = json.get("login");
 		
 		String pass = json.get("pass");
 		
-		User p_user = hUserService.enableTolog(login, pass);
+		Account p_user = hUserService.enableTolog(login, pass);
 	
 		log.info("user authentifié : " + p_user);
 		

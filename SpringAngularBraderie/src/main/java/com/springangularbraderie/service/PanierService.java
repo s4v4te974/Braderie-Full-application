@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.springangularbraderie.model.Article;
 import com.springangularbraderie.model.Panier;
-import com.springangularbraderie.model.User;
+import com.springangularbraderie.model.Account;
 import com.springangularbraderie.repository.IPanierRep;
 
 import lombok.Data;
@@ -86,7 +86,7 @@ public class PanierService implements IPanierService{
 	}
 
 	@Override
-	public Panier insertArticle(User p_user, Article p_article, int quantite) {
+	public Panier insertArticle(Account p_user, Article p_article, int quantite) {
 
 		Panier hPanierAdded = null;
 
@@ -187,7 +187,7 @@ public class PanierService implements IPanierService{
 
 
 	//////// externalisation de la methode addCaddie
-	public List<Panier> addCadie(List<Panier> p_lPanier, User p_user, Article p_article, int p_quantite){
+	public List<Panier> addCadie(List<Panier> p_lPanier, Account p_user, Article p_article, int p_quantite){
 
 		boolean bIdTrouve = false;
 
@@ -234,7 +234,7 @@ public class PanierService implements IPanierService{
 		return p_lPanier;
 	}
 
-	public List<Panier> setPrixListPanier(User hUser){
+	public List<Panier> setPrixListPanier(Account hUser){
 
 		// Récupération de la liste de panier dans la BDD 
 		List<Panier> listePanier = hPanierRep.getListPaniers(hUser.getIdUser());
@@ -248,7 +248,7 @@ public class PanierService implements IPanierService{
 		return listePanier;
 	}
 	
-	public void removeArticle(Integer idArticle, User p_user) {
+	public void removeArticle(Integer idArticle, Account p_user) {
 		
 		Panier hPanier = hPanierRep.getByUserAndArticle(p_user.getIdUser(), idArticle);
 		

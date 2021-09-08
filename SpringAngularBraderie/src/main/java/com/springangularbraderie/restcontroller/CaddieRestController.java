@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.springangularbraderie.model.Panier;
-import com.springangularbraderie.model.User;
+import com.springangularbraderie.model.Account;
 import com.springangularbraderie.service.ArticleService;
 import com.springangularbraderie.service.PanierService;
 import com.springangularbraderie.service.UserService;
@@ -36,14 +36,13 @@ public class CaddieRestController {
 	@Autowired
 	UserService hUserService;
 
-	
 	@DeleteMapping(path="/removeArticle")
 	// récupère grâce  pathVariable l'idArticle 
 	public void removeBDD(@RequestBody Panier p_panier) {
-		
-		User hUser = p_panier.getUser();
+
+		Account hUser = p_panier.getUser();
 		int idArticle = p_panier.getArticle().getIdArticle(); 
-		
+
 		hPanierService.removeArticle(idArticle, hUser);
 
 		// Récupération de la liste de panier dans la BDD 
@@ -52,7 +51,7 @@ public class CaddieRestController {
 
 		@SuppressWarnings("unused")
 		Integer prixTotal = hPanierService.totalPanier(hUser.getIdUser());	
-		
+
 		log.info("iDarticle supprimé : " + idArticle);
 	}
 }

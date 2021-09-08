@@ -35,9 +35,9 @@ public class Panier implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPanier;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Account.class, fetch = FetchType.EAGER)
     @JoinColumn(name="idUser", referencedColumnName = "idUser", nullable = false)
-    private User User; 
+    private Account User; 
     
     @ManyToOne(targetEntity = Article.class, fetch = FetchType.EAGER)
     @JoinColumn(name="idArticle", referencedColumnName = "idArticle", nullable=false)
@@ -60,7 +60,7 @@ public class Panier implements Serializable {
      * @param idArticle
      * @param quantite
      */
-    public Panier(User p_User, Article p_Article, int quantite) {
+    public Panier(Account p_User, Article p_Article, int quantite) {
         this.User = p_User;
         this.Article = p_Article;
         this.quantite = quantite;

@@ -3,13 +3,13 @@ package com.springangularbraderie.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.springangularbraderie.model.User;
+import com.springangularbraderie.model.Account;
 
 @Repository
-public interface IUserRep extends JpaRepository<User, Integer> {
+public interface IUserRep extends JpaRepository<Account, Integer> {
 	
-	//Integer countByLoginAndPass(String login, String pass);
-
-	User getByLoginAndPass(String login, String pass);
+	Account getByLoginAndPass(String login, String pass);
+	
+	Account findOneByLogin(String login);
 	
 }

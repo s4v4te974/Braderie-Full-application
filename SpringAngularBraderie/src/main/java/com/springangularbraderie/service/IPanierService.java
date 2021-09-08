@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.springangularbraderie.model.Article;
 import com.springangularbraderie.model.Panier;
-import com.springangularbraderie.model.User;
+import com.springangularbraderie.model.Account;
 
 /**
  * @author dangs
@@ -15,7 +15,7 @@ import com.springangularbraderie.model.User;
  */
 public interface IPanierService {
 	
-	public Panier insertArticle (User p_user, Article p_article, int quantite);
+	public Panier insertArticle (Account p_user, Article p_article, int quantite);
 	
 	public void deleteAll (int idUser);
 
