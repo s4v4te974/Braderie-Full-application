@@ -4,8 +4,8 @@
 package com.springangularbraderie.service;
 
 /**
- * @author Stephane Kouotze CDA7
- *
+ * @author JRSS
+ * Manipulation des Articles
  */
 public interface IAdminService {
 
