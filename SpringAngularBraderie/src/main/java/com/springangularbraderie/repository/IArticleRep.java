@@ -10,7 +10,8 @@ import com.springangularbraderie.model.Article;
 
 
 /**
- * @author kingd
+ * @author JRSS
+ *	Repository de gestion des Articles
  *
  */
 @Repository

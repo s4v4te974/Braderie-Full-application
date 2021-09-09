@@ -8,6 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import com.springangularbraderie.model.Account;
 
+/**
+ * @author JRSS
+ * Repository de gestion des User/account
+ */
 @Repository
 public interface IUserRep extends JpaRepository<Account, Integer> {
 	

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.springangularbraderie.model.Article;
 
 /**
- * 
- * Classe permettant de communiquer avec la base de données en tant qu'admin
+ * @author JRSS
+ * Repository de gestion (Admin)
  *
  */
 @Repository
