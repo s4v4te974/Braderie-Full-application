@@ -1,5 +1,5 @@
 /**
- * 
+ * Package Service
  */
 package com.springangularbraderie.service;
 
@@ -35,7 +35,6 @@ public class PanierService implements IPanierService{
 	@Autowired
 	ArticleService hArticleService;
 	
-
 	/**
 	 * Méthode qui met à jour la quantité d'une liggne de panier
 	 * @param iduser

@@ -13,8 +13,8 @@ import com.springangularbraderie.repository.IUserRep;
 
 
 /**
+ * @author JRSS
  * Classe pour les interactions de l'utilisateur
- * 
  */
 
 @Service

@@ -1,3 +1,6 @@
+/**
+ * Package repository
+ */
 package com.springangularbraderie.repository;
 
 import java.util.List;

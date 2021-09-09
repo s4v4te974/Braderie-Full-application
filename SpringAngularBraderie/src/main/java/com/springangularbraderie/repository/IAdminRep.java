@@ -1,5 +1,5 @@
 /**
- * 
+ * Package repository
  */
 package com.springangularbraderie.repository;
 
@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.springangularbraderie.model.Article;
 
 /**
- * @author Stephane Kouotze CDA7
+ * 
+ * Classe permettant de communiquer avec la base de données en tant qu'admin
  *
  */
 @Repository

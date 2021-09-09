@@ -1,5 +1,5 @@
 /**
- * 
+ * Package Service
  */
 package com.springangularbraderie.service;
 
@@ -33,7 +33,6 @@ public class ArticleService implements IArticleService{
 
 		return lArticle;
 	}
-
 
 	@Override
 	public Optional<Article> getArticle(int idArticle) {
