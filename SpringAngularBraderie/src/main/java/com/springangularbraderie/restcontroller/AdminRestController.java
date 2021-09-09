@@ -16,15 +16,17 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RestController
-
 public class AdminRestController {
 	
 	@Autowired
 	AdminService adminService;
 	
-	
-
-	// a recuperer dans Article 
+	public createArticle(Article ) {
+		
+	return Article	
+		
+	}
+   
 	
 	// read One
 	
