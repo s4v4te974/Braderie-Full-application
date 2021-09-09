@@ -18,8 +18,8 @@ import com.springangularbraderie.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author Stephane Kouotze CDA7
- *
+ * @author JRSS
+ * Restful Caddie
  */
 @Slf4j
 @RestController
@@ -36,6 +36,11 @@ public class CaddieRestController {
 	@Autowired
 	UserService hUserService;
 
+	/**
+	 * Permet de supprimer un article sauvegarder par un User dans la base de données Panier
+	 * @param p_panier {@link Panier}
+	 * @param p_user {@link Account}
+	 */
 	@DeleteMapping(path="/removeArticle")
 	// récupère grâce  pathVariable l'idArticle 
 	public void removeBDD(@RequestBody Panier p_panier) {

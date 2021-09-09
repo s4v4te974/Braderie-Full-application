@@ -18,10 +18,9 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author Stephane Kouotze CDA7
- *
+ * @author JRSS
+ * Manipulation des Paniers
  */
-
 @Data
 @Service
 @Slf4j
@@ -36,11 +35,11 @@ public class PanierService implements IPanierService{
 	ArticleService hArticleService;
 	
 	/**
-	 * Méthode qui met à jour la quantité d'une liggne de panier
-	 * @param iduser
-	 * @param quantite
-	 * @param idArticle
-	 * @return
+	 * Met à jour la quantite d'une ligne de panier
+	 * @param iduser {@link Integer}
+	 * @param quantite {@link Integer}
+	 * @param idArticle {@link Article}
+	 * @return panier {@link Panier}
 	 */
 	public Panier updatePanier(int iduser, int quantite, int idArticle) {
 
@@ -56,9 +55,11 @@ public class PanierService implements IPanierService{
 	}
 
 	/**
-	 * Méthode qui insère une ligne de panier dans le panier d'un User ou met à jour la quantité 
-	 * si l'article est déjà présent dans son panier
-	 * @param UserRestController p_user, Article p_article, int quantite
+	 * Permet de vérifier si un article est déja present dans la base de données
+	 * @param iduser {@link Integer}
+	 * @param quantite {@link Integer}
+	 * @param iduser {@link Integer}
+	 * @return {@link Boolean}
 	 */
 
 	private boolean verifIdArticleBase(int p_user, int idArticle, int quantite){
@@ -84,6 +85,14 @@ public class PanierService implements IPanierService{
 		return resultat;
 	}
 
+
+	/**
+	 * Insere une ligne de panier dans le panier d'un User 
+	 * @param p_user {@link Account}
+	 * @param p_article {@link Article}
+	 * @param quantite {@link Integer}
+	 * @return panier {@link Panier}
+	 */
 	@Override
 	public Panier insertArticle(Account p_user, Article p_article, int quantite) {
 
@@ -125,8 +134,8 @@ public class PanierService implements IPanierService{
 	}
 
 	/**
-	 * Méthode qui supprime la liste de panier appartenant à un User
-	 * @param idUser
+	 * Supprime la liste de panier appartenant à un User
+	 * @param idUser {@link Integer}
 	 */
 	@Override
 	public void deleteAll(int idUser) {
@@ -141,9 +150,9 @@ public class PanierService implements IPanierService{
 	}
 
 	/**
-	 * Méthode qui récupère une liste de Panier appartenant à un User
-	 * @param p_id
-	 * @return une liste de Paniers
+	 * Récupère une liste de Panier appartenant à un User
+	 * @param p_id {@link Integer}
+	 * @return list panier {@link List} {@link Panier}
 	 */
 	@Override
 	public List<Panier> getListArticle(int p_id) {
@@ -156,19 +165,19 @@ public class PanierService implements IPanierService{
 	}
 
 	/**
-	 * Methode qui permet de verifier suivant un idArticle donné s'il est déjà présent dans la base 
-	 * s'il est présent il retourne true sinon false
-	 * @param idArticle
-	 * @param quantite
-	 * @return
+	 * Sauvegarde la liste de paniers dans la base de données
+	 * @param lPanier {@link List} {@link Panier}
 	 */
-
-
 	public void savePanier(List<Panier> lPanier) {
 		hPanierRep.saveAll(lPanier);
 	}
 
 
+	/**
+	 * Permet de calculer le prix total du panier courant
+	 * @param p_id {@link Integer}
+	 * @return totalPrix {@link Integer}
+	 */
 	public Integer totalPanier(int p_id) {
 
 		Integer totalPrice = 0;
@@ -185,7 +194,17 @@ public class PanierService implements IPanierService{
 	}
 
 
-	//////// externalisation de la methode addCaddie
+	
+	/**
+	 * Permet suite à vérification du contenu du panier 
+	 * Soit d'ajouter un une ligne de panier
+	 * Soit de mettre à jour cette ligne de panier
+	 * @param p_lPanier {@link List} {@link Panier}
+	 * @param p_user {@link Account}
+	 * @param p_article {@link Article}
+	 * @param p_quantite {@link Integer}
+	 * @return list Panier {@link List} {@link Panier}
+	 */
 	public List<Panier> addCadie(List<Panier> p_lPanier, Account p_user, Article p_article, int p_quantite){
 
 		boolean bIdTrouve = false;
@@ -216,7 +235,7 @@ public class PanierService implements IPanierService{
 		} // FIN FOR
 
 		//si le boolean n'a pas changé à true alors
-		//cela signifie que l'article n'existe pas dans mon panier 
+		//cela signifie que l'articl e n'existe pas dans mon panier 
 		if (!bIdTrouve) {
 
 			// Création d'une nouvelle ligne de panier avec les informations récupérées dans le form
@@ -233,10 +252,15 @@ public class PanierService implements IPanierService{
 		return p_lPanier;
 	}
 
-	public List<Panier> setPrixListPanier(Account hUser){
+	/**
+	 * permet de claculer le prix total du panier
+	 * @param p_user {@link Account}
+	 * @return {@link List} {@link Panier}
+	 */
+	public List<Panier> setPrixListPanier(Account p_user){
 
 		// Récupération de la liste de panier dans la BDD 
-		List<Panier> listePanier = hPanierRep.getListPaniers(hUser.getIdUser());
+		List<Panier> listePanier = hPanierRep.getListPaniers(p_user.getIdUser());
 
 		// Parcours la liste pour calculer et setter le prix de la ligne 
 		for (Panier panier : listePanier) {
@@ -247,6 +271,12 @@ public class PanierService implements IPanierService{
 		return listePanier;
 	}
 	
+	
+	/**
+	 * Permet de supprimer un article sauvegarder par un User dans la base de données Panier
+	 * @param idArticle {@link Article}
+	 * @param p_user {@link Account}
+	 */
 	public void removeArticle(Integer idArticle, Account p_user) {
 		
 		Panier hPanier = hPanierRep.getByUserAndArticle(p_user.getIdUser(), idArticle);

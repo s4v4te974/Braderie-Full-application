@@ -12,10 +12,9 @@ import org.springframework.stereotype.Service;
 import com.springangularbraderie.model.Article;
 import com.springangularbraderie.repository.IArticleRep;
 
-
 /**
- * @author Stephane Kouotze CDA7
- *
+ * @author JRSS
+ * Manipulation des Articles
  */
 
 @Service
@@ -24,6 +23,10 @@ public class ArticleService implements IArticleService{
 	@Autowired
 	IArticleRep hArticleRep;
 
+	/**
+	 * Permet de retourner la liste des articles
+	 * @return list Panier {@link List} {@link Article}
+	 */
 	@Override
 	public List<Article> getAllArticle() {
 
@@ -34,6 +37,11 @@ public class ArticleService implements IArticleService{
 		return lArticle;
 	}
 
+	/**
+	 * Permet de retourner la liste des articles
+	 * @param idArticle {@link Integer}
+	 * @return list Panier {@link Optional} {@link Article}
+	 */
 	@Override
 	public Optional<Article> getArticle(int idArticle) {
 		

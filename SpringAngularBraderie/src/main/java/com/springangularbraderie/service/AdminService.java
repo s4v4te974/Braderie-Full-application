@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author JRSS
- * Methode complémentaire de l'admin
+ * Classe Service de l'admin
  *
  */
 @Service
@@ -37,7 +37,7 @@ public class AdminService implements IAdminService {
 	 * permet d'updater les attributs d'un article
 	 * 
 	 * @param p_idArticle {@link Article}
-	 * @return {@link Article}
+	 * @return article {@link Article}
 	 */
 	@Transactional
 	public Article updateArticleAdmin(Article p_article) {
