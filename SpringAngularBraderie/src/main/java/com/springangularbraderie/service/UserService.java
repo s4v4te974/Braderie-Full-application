@@ -1,5 +1,5 @@
 /**
- * 
+ * Package Service
  */
 package com.springangularbraderie.service;
 
@@ -13,8 +13,8 @@ import com.springangularbraderie.repository.IUserRep;
 
 
 /**
- * @author Stephane Kouotze CDA7
- *
+ * Classe pour les interactions de l'utilisateur
+ * 
  */
 
 @Service
@@ -23,13 +23,23 @@ public class UserService implements IUserService{
 	@Autowired
 	IUserRep hUserRep;
 
+	/**
+	 * Permet de chercher dans la base de données si le user existe.
+	 * Si il existe, retroune les informations de celui ci
+	 * @param login {@link String}
+	 * @param pass {@link String}
+	 * @return un [{@link Account} de la base de données
+	 */
 	@Override
 	public Account enableTolog(String login, String pass) {
-		// TODO Gerer les exception
 		return hUserRep.getByLoginAndPass(login, pass);
 	}
 	
-	
+	/**
+	 * Permet de récupérer un utilisateur via son ID
+	 * @param p_idUser {@link Integer}
+	 * @return Utilisateur {@link Account}
+	 */
 	public Optional<Account> findByIdUser(int p_idUser) {
 		
 		Optional<Account> hUser = null;

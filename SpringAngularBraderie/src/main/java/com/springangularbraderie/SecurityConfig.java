@@ -70,15 +70,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// (GEt/ post) dans les antMatchers ( qui coreespondent au URl de notre appli ainsi que le role de l'accebilité
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		log.info("methode configure");
 		http.authorizeRequests()
-		.and()
-		.formLogin()
-		.loginProcessingUrl("/index/user")
-		.usernameParameter("login")
-        .passwordParameter("pass")
-		.defaultSuccessUrl("/magasin/**", true).permitAll()
-		.failureUrl("/robert.html?error=true")
+		.antMatchers("magasin/**").permitAll()
+//		.and()
+//		.formLogin()
+//		.loginProcessingUrl("/index/user")
+//		.usernameParameter("login")
+//        .passwordParameter("pass")
+//		.defaultSuccessUrl("/magasin/**", true).permitAll()
+//		.failureUrl("/robert.html?error=true")
 //		.antMatchers("/SpringAngularBraderie/**").hasRole("admin")
 //		.antMatchers(HttpMethod.GET, "/magasin/getAllArticle/**").hasRole("user")
 //		.antMatchers(HttpMethod.GET, "/magasin/getListPanier").hasRole("user")
