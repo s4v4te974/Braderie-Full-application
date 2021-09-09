@@ -3,6 +3,9 @@
  */
 package com.springangularbraderie;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +17,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.springangularbraderie.service.AuthentificationService;
+
+import lombok.extern.slf4j.Slf4j;
+import sun.util.logging.resources.logging;
 
 /**
  * @author 31010-69-04
@@ -29,6 +38,7 @@ import com.springangularbraderie.service.AuthentificationService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Slf4j
 // WebSecurityConfigurerAdapter permet d'overrider les sécurité web avec les notres
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -39,23 +49,47 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();		
 	}
+	
+	@Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:4200","https://localhost:9000"));
+        config.setAllowedMethods(Arrays.asList("GET","POST"));
+        config.setAllowCredentials(true);
+        //the below three lines will add the relevant CORS response headers
+        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedOrigin("http://localhost:9000");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 
 	// on configure nos servcies HTTP en lui passant les méthodes accessibles 
 	// (GEt/ post) dans les antMatchers ( qui coreespondent au URl de notre appli ainsi que le role de l'accebilité
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		log.info("methode configure");
 		http.authorizeRequests()
-		.antMatchers("/SpringAngularBraderie/**").hasRole("admin")
-		.antMatchers(HttpMethod.GET, "/magasin/getAllArticle/**").hasRole("user")
-		.antMatchers(HttpMethod.GET, "/magasin/getListPanier").hasRole("user")
-		.antMatchers(HttpMethod.GET, "/magasin/getArticle/**").hasRole("user")
-		.antMatchers(HttpMethod.POST, "/magasin/savePanier/**").hasRole("user")
-		.antMatchers(HttpMethod.POST, "/index/user/**").hasRole("user")
-		.antMatchers(HttpMethod.DELETE, "/magasin/clear/**").hasRole("user")
-		.antMatchers(HttpMethod.DELETE, "caddie/removeArticle/**").hasRole("user")	
+		.and()
+		.formLogin()
+		.loginProcessingUrl("/index/user")
+		.usernameParameter("login")
+        .passwordParameter("pass")
+		.defaultSuccessUrl("/magasin/**", true).permitAll()
+		.failureUrl("/robert.html?error=true")
+//		.antMatchers("/SpringAngularBraderie/**").hasRole("admin")
+//		.antMatchers(HttpMethod.GET, "/magasin/getAllArticle/**").hasRole("user")
+//		.antMatchers(HttpMethod.GET, "/magasin/getListPanier").hasRole("user")
+//		.antMatchers(HttpMethod.GET, "/magasin/getArticle/**").hasRole("user")
+//		.antMatchers(HttpMethod.POST, "/magasin/savePanier/**").hasRole("user")
+//		.antMatchers(HttpMethod.POST, "/index/user/**").hasRole("user")
+//		.antMatchers(HttpMethod.DELETE, "/magasin/clear/**").hasRole("user")
+//		.antMatchers(HttpMethod.DELETE, "caddie/removeArticle/**").hasRole("user")	
 		.and().httpBasic();
 
-		http.csrf().disable().cors().disable();
+		http.csrf().disable().cors().configurationSource(corsConfigurationSource());
 		http.headers().frameOptions().disable();
 	}
 
