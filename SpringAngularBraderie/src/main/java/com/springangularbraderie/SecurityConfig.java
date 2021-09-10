@@ -72,36 +72,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 * pour les rôles admin pas de restrictions
 		 * pour les rôles USER restriction sur les PUT, PATCH et DELETE
 		 */
-		//http.cors();
-		http
-		//HTTP Basic authentication
-		.httpBasic()
-		.and()
-		.authorizeRequests()
-		.antMatchers("/**").hasRole("ADMIN")
-		.antMatchers(HttpMethod.GET, "/magasin/getAllArticle/**").hasRole("USER")
-		.antMatchers(HttpMethod.GET, "/magasin/getListPanier").hasRole("USER")
-		.antMatchers(HttpMethod.GET, "/magasin/getArticle/**").hasRole("USER")
-		.antMatchers(HttpMethod.POST, "/magasin/savePanier/**").hasRole("ADMIN")
-		.antMatchers(HttpMethod.POST, "/index/user/**").hasRole("USER")
-		.antMatchers(HttpMethod.DELETE, "/magasin/clear/**").hasRole("USER")
-		.antMatchers(HttpMethod.DELETE, "caddie/removeArticle/**").hasRole("USER")    
-		.and()
-		.csrf().disable()
-		.formLogin().disable();
+//				//http.cors();
+//				http
+//				//HTTP Basic authentication
+//				.httpBasic()
+//				.and()
+//				.authorizeRequests()
+//				.antMatchers("/**").permitAll()
+//				.antMatchers(HttpMethod.GET, "/magasin/getAllArticle/**").hasRole("USER")
+//				.antMatchers(HttpMethod.GET, "/magasin/getListPanier").hasRole("USER")
+//				.antMatchers(HttpMethod.GET, "/magasin/getArticle/**").hasRole("USER")
+//				.antMatchers(HttpMethod.POST, "/magasin/savePanier/**").hasRole("ADMIN")
+//				.antMatchers(HttpMethod.POST, "/index/user/**").hasRole("USER")
+//				.antMatchers(HttpMethod.DELETE, "/magasin/clear/**").hasRole("USER")
+//				.antMatchers(HttpMethod.DELETE, "caddie/removeArticle/**").hasRole("USER")    
+//				.and()
+//				.csrf().disable()
+//				.formLogin().disable();
 
 		// You can customize the following part based on your project, it's only a sample
-		//        http
-		//        .authorizeRequests()
-		//        .antMatchers("/**")
-		//        .permitAll()
-		//        .anyRequest()
-		//        .authenticated()
-		//        .and()
-		//        .csrf()
-		//        .disable()
-		//        .cors()
-		//        .configurationSource(request -> corsConfiguration);
+		http
+		.authorizeRequests()
+		.antMatchers("/**")
+		.permitAll()
+		.anyRequest()
+		.authenticated()
+		.and()
+		.csrf()
+		.disable()
+		.cors()
+		.configurationSource(request -> corsConfiguration);
 	}
 }
 
