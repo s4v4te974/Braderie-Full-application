@@ -1,9 +1,10 @@
 /**
- * 
+ * Package Rest
  */
 package com.springangularbraderie.restcontroller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,8 +24,8 @@ import com.springangularbraderie.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author Stephane Kouotze CDA7
- *
+ * @author JRSS
+ * Restful Magasin
  */
 
 @Slf4j
@@ -41,7 +42,11 @@ public class MagasinRestController {
 
 	@Autowired
 	UserService hUserService;
-	
+
+	/**
+	 * Permet de retourner la liste des articles
+	 * @return list Panier {@link List} {@link Article}
+	 */
 	@GetMapping(path="/getAllArticle", produces= "application/json")
 	public List<Article> getAllArticle() {
 
@@ -50,50 +55,69 @@ public class MagasinRestController {
 		return lArticle;
 	}
 
+	/**
+	 * Permet de retourner un article specifique
+	 * @param idArticle {@link Integer}
+	 * @return Article {@link Article}
+	 */
 	@GetMapping(path="/getArticle", produces= "application/json")
 	public Article getArticleById(int idArticle) {
 
 		Article hArticle = hArticleService.getArticle(idArticle).get();
-		
+
 		log.info("Article ajouté : " + hArticle);
 
 		return hArticle;
 	}
 
+	/**
+	 * Sauvegarde la liste de panier selon un User
+	 * @param list Panier {@link Optional} {@link Article}
+	 * @return list Panier {@link Optional} {@link Article}
+	 */
 	@PostMapping(path="/savePanier", consumes= "application/json")
 	public List<Panier> savePanier(@RequestBody List<Panier> p_lPanier) {
-		
-		// Suppression de la liste de panier du User dans la BDD
-        hPanierService.deleteAll(p_lPanier.get(0).getUser().getIdUser());
 
-        // Parcours la liste de panier pour l'insérer dans la bdd
+		// Suppression de la liste de panier du User dans la BDD
+		hPanierService.deleteAll(p_lPanier.get(0).getUser().getIdUser());
+
+		// Parcours la liste de panier pour l'insérer dans la bdd
 		for (Panier panier : p_lPanier) {	
 			Account p_user = panier.getUser();
 			Article p_article= panier.getArticle();
 			hPanierService.insertArticle(p_user, p_article, panier.getQuantite());
 		}
-			
+
 		log.info("Panier sauvegardé : " + p_lPanier);	
 
 		return p_lPanier;
 	}
-	
+
+	/**
+	 * Supprime la liste de panier appartenant à un User
+	 * @param idUser {@link Integer}
+	 */
 	@DeleteMapping(path="/clear/{id}")
-    public void deleteCaddie(@PathVariable("id") int idUser) {
-        
-        // Suppression de la liste de panier du User dans la BDD
-        hPanierService.deleteAll(idUser);
+	public void deleteCaddie(@PathVariable("id") int idUser) {
 
-        // Récupération de la liste de panier de la BDD (qui doit être vide)
-        List<Panier> listeCaddie = hPanierService.getListArticle(idUser);
+		// Suppression de la liste de panier du User dans la BDD
+		hPanierService.deleteAll(idUser);
 
-        log.info("Panier supprimé, taille du panier : " + listeCaddie.size());
-    }
-	
+		// Récupération de la liste de panier de la BDD (qui doit être vide)
+		List<Panier> listeCaddie = hPanierService.getListArticle(idUser);
 
+		log.info("Panier supprimé, taille du panier : " + listeCaddie.size());
+	}
+
+
+	/**
+	 * Récupère une liste de Panier appartenant à un User
+	 * @param idUser {@link Integer}
+	 * @return list panier {@link List} {@link Panier}
+	 */
 	@GetMapping(path="/getListPanier", produces= "application/json")
 	public List<Panier> restore(int idUser) {
-		
+
 		Account hUser = hUserService.findByIdUser(idUser).get();
 
 		// Récupération de la liste de panier dans la BDD 
@@ -103,7 +127,7 @@ public class MagasinRestController {
 		Integer prixTotal = hPanierService.totalPanier(hUser.getIdUser());
 
 		log.info("Panier récupéré - taille du panier : " + listeCaddie.size() + ", du user : " + hUser);
-		
+
 		return listeCaddie;
 	}
 }

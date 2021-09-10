@@ -14,7 +14,7 @@ import com.springangularbraderie.repository.IUserRep;
 
 /**
  * @author JRSS
- * Classe pour les interactions de l'utilisateur
+ * Manipulation des Users
  */
 
 @Service
@@ -25,7 +25,8 @@ public class UserService implements IUserService{
 
 	/**
 	 * Permet de chercher dans la base de données si le user existe.
-	 * Si il existe, retroune les informations de celui ci
+	 * Si il existe, retourne les informations de celui ci
+	 * 
 	 * @param login {@link String}
 	 * @param pass {@link String}
 	 * @return un [{@link Account} de la base de données
@@ -37,6 +38,7 @@ public class UserService implements IUserService{
 	
 	/**
 	 * Permet de récupérer un utilisateur via son ID
+	 * 
 	 * @param p_idUser {@link Integer}
 	 * @return Utilisateur {@link Account}
 	 */

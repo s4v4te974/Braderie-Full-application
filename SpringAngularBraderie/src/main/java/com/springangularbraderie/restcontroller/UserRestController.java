@@ -1,5 +1,5 @@
 /**
- * 
+ * Package Rest
  */
 package com.springangularbraderie.restcontroller;
 
@@ -20,8 +20,8 @@ import com.springangularbraderie.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author Stephane Kouotze CDA7
- *
+ * @author JRSS
+ * Restful User
  */
 
 @Slf4j
@@ -30,9 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 @CrossOrigin(origins ="*")
 public class UserRestController {
 
-	/**
-	 * 
-	 */
 
 	@Autowired
 	IUserService hUserService;
@@ -40,6 +37,11 @@ public class UserRestController {
 	@Autowired
 	IArticleService hArticleService;
 
+	/**
+	 * Permet de logger un User
+	 * @param json
+	 * @return User {@link User}
+	 */
 	@PostMapping(path="/user", produces= "application/json")
 	public Account getCurrentConnectUser(@RequestBody Map<String, String> json) {
 		
