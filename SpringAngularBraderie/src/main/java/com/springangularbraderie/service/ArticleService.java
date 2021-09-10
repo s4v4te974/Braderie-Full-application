@@ -27,6 +27,7 @@ public class ArticleService implements IArticleService{
 	 * Permet de retourner la liste des articles
 	 * @return list Panier {@link List} {@link Article}
 	 */
+	
 	@Override
 	public List<Article> getAllArticle() {
 
@@ -53,5 +54,3 @@ public class ArticleService implements IArticleService{
 	}
 
 }
-
-

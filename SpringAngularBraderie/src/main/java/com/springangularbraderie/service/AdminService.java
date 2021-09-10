@@ -32,6 +32,24 @@ public class AdminService implements IAdminService {
 	
 	@Autowired
 	IArticleRep articleRep;
+	
+	/**
+	 * Permet de persister un article 
+	 * 
+	 * @param p_Article {@link Article}
+	 * @return article {@link Article}
+	 */
+	@Transactional
+	public Article createArticleAdmin(Article p_Article) {
+		
+		Article articleCreate = new Article(p_Article.getDescription(), p_Article.getMarque(), p_Article.getPrix());
+		
+		adminRep.save(articleCreate);
+		
+		log.info("Article créé et insérer dans la base de données");
+		
+		return articleCreate;
+	}
 
 	/**
 	 * permet d'updater les attributs d'un article
@@ -77,19 +95,5 @@ public class AdminService implements IAdminService {
 		log.info(" Article supprimé de la base de données");
 	}
 	
-	/**
-	 * Permet de persister un article 
-	 * 
-	 * @param p_Article {@link Article}
-	 * @return article {@link Article}
-	 */
-	@Transactional
-	public Article createArticleAdmin(Article p_Article) {
-		
-		Article articleCreate = new Article(p_Article.getDescription(), p_Article.getMarque(), p_Article.getPrix());
-		
-		adminRep.save(articleCreate);
-		
-		return articleCreate;
-	}
+	
 }
