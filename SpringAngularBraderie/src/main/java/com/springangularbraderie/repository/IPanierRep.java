@@ -18,6 +18,7 @@ import com.springangularbraderie.model.Panier;
  * @author JRSS
  * Repository de gestion du panier
  */
+
 @Repository
 public interface IPanierRep extends JpaRepository<Panier, Integer> {
 	
@@ -39,5 +40,9 @@ public interface IPanierRep extends JpaRepository<Panier, Integer> {
 	 */
 	@Query("select p from Panier p where p.User.idUser= :idUser and p.Article.idArticle= :idArticle")
 	Panier getByUserAndArticle(@Param("idUser")Integer iduser, @Param("idArticle")Integer idArticle) ;
+	
+	
+	@Query("select p from Panier p where p.Article.idArticle= :idArticle")
+	List<Panier> deletePanierByIDArticle(@Param("idArticle")Integer idArticle);
 	
 }

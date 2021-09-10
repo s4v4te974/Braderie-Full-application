@@ -6,6 +6,7 @@ package com.springangularbraderie.restcontroller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springangularbraderie.model.Article;
 import com.springangularbraderie.service.AdminService;
-
+import com.springangularbraderie.service.PanierService;
 
 /**
  * @author JRSS
@@ -28,6 +29,9 @@ public class AdminRestController {
 
 	@Autowired
 	AdminService adminService;
+	
+	@Autowired
+	PanierService panierService;
 
 	/**
 	 * Permet de persister un article 
@@ -38,6 +42,7 @@ public class AdminRestController {
 	@PostMapping(path = "/createArticle", consumes="application/json")
 	public Article createArticle(@RequestBody Article p_Article) {
 
+		// verifier que l'article n'existe pas déjà
 		Article hArticle = adminService.createArticleAdmin(p_Article);
 
 		return hArticle;			
@@ -49,7 +54,7 @@ public class AdminRestController {
 	 * @param p_Article {@link Article}
 	 * @return article {@link Article}
 	 */
-	@PutMapping(path = "/updateArticle", consumes="application/json")
+	@PutMapping(path = "/updateArticle")
 	public Article updateArticle(@RequestBody Article p_Article) {
 
 		Article uArticle = adminService.updateArticleAdmin(p_Article);
@@ -62,8 +67,12 @@ public class AdminRestController {
 	 * @param p_Article {@link Article}
 	 * @return article {@link Article}
 	 */
-	@DeleteMapping(path="/removeAdmin")
-	public void deleteArticle(@RequestBody Integer idArticle) {
+	@DeleteMapping(path="/removeAdmin/{id}")
+	public void deleteArticle(@PathVariable("id") Integer idArticle) {
+		
+	// supprimer les lignes de panier qui ont le meme ID
+		
+	panierService.deleteArticle(idArticle);
 		
 	adminService.removeArticleAdmin(idArticle);
 		

@@ -282,6 +282,13 @@ public class PanierService implements IPanierService{
 		Panier hPanier = hPanierRep.getByUserAndArticle(p_user.getIdUser(), idArticle);
 		
 		hPanierRep.delete(hPanier);
+		
 	}
-
+	
+	public void deleteArticle(Integer idArticle) {
+		
+		List<Panier> lPaniers = hPanierRep.deletePanierByIDArticle(idArticle);
+		
+		hPanierRep.deleteAll(lPaniers);
+	}
 }
