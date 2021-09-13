@@ -72,7 +72,7 @@ public class MagasinRestController {
 
 	/**
 	 * Sauvegarde la liste de panier selon un User
-	 * @param list Panier {@link Optional} {@link Article}
+	 * @param p_lPanier {@link Optional} {@link Article}
 	 * @return list Panier {@link Optional} {@link Article}
 	 */
 	@PostMapping(path="/savePanier", consumes= "application/json")

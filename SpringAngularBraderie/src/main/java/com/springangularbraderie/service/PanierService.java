@@ -285,6 +285,10 @@ public class PanierService implements IPanierService{
 		
 	}
 	
+	/**
+	 * Permet de supprimer toutes les lignes de paniers via l'id Article
+	 * @param idArticle {@link Article}
+	 */
 	public void deleteArticle(Integer idArticle) {
 		
 		List<Panier> lPaniers = hPanierRep.deletePanierByIDArticle(idArticle);

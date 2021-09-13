@@ -39,7 +39,6 @@ public class CaddieRestController {
 	/**
 	 * Permet de supprimer un article sauvegarder par un User dans la base de données Panier
 	 * @param p_panier {@link Panier}
-	 * @param p_user {@link Account}
 	 */
 	@DeleteMapping(path="/removeArticle")
 	// récupère grâce  pathVariable l'idArticle 

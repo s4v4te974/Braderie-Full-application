@@ -41,7 +41,11 @@ public interface IPanierRep extends JpaRepository<Panier, Integer> {
 	@Query("select p from Panier p where p.User.idUser= :idUser and p.Article.idArticle= :idArticle")
 	Panier getByUserAndArticle(@Param("idUser")Integer iduser, @Param("idArticle")Integer idArticle) ;
 	
-	
+	/**
+	 * Permet de supprimer une ligne de Panier l'idArticle
+	 * @param idArticle {@link Integer}
+	 * @return listePanier {@link List} {@link Panier}
+	 */
 	@Query("select p from Panier p where p.Article.idArticle= :idArticle")
 	List<Panier> deletePanierByIDArticle(@Param("idArticle")Integer idArticle);
 	

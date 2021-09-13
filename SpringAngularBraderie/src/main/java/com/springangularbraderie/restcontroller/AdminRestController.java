@@ -64,8 +64,7 @@ public class AdminRestController {
 	
 	/**
 	 * Permet de supprimer un article de la base de données
-	 * @param p_Article {@link Article}
-	 * @return article {@link Article}
+	 * @param idArticle {@link Article}
 	 */
 	@DeleteMapping(path="/removeAdmin/{id}")
 	public void deleteArticle(@PathVariable("id") Integer idArticle) {

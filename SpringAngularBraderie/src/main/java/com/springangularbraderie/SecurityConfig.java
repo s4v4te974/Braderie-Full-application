@@ -1,5 +1,5 @@
 /**
- * 
+ * Package Application
  */
 package com.springangularbraderie;
 
@@ -17,48 +17,47 @@ import org.springframework.web.cors.CorsConfiguration;
 
 /**
  * @author JRSS
- * Fichier de configuration
+ * Fichier de configuration HTTP
  *
  */
 
 // on indique fichier de configuration spring
 // @EnableWebSecurity permet de valider les modifs faite par la classe abstraite WebSecurityConfigurerAdapter
 // @EnableGlobalMethodSecurity The prePostEnabled property enables Spring Security pre/post annotations.
+//WebSecurityConfigurerAdapter permet d'overrider les sécurité web avec les notres
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled=true)
-// WebSecurityConfigurerAdapter permet d'overrider les sécurité web avec les notres
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	//        @Bean
-	//        CorsConfigurationSource corsConfigurationSource() {​​​​​​​
-	//            CorsConfiguration config = new CorsConfiguration();
-	//            config.setAllowedOrigins(Arrays.asList("http://localhost:4200","https://localhost:9000"));
-	//            config.setAllowedMethods(Arrays.asList("GET","POST"));
-	//            config.setAllowCredentials(true);
-	//            //the below three lines will add the relevant CORS response headers
-	//            config.addAllowedOrigin("http://localhost:4200");
-	//            config.addAllowedOrigin("http://localhost:9000");
-	//            config.addAllowedHeader("*");
-	//            config.addAllowedMethod("*");
-	//            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	//            source.registerCorsConfiguration("/**", config);
-	//            return source;
-	//        }​​​​​​​
 
+	/**
+	 * Configuration Globale
+	 * @param auth {@link AuthenticationManagerBuilder}
+	 */	
 	@Autowired
-	public void globalConfig(AuthenticationManagerBuilder auth) throws Exception {
-		//Authentification en mémoire static
-		auth.inMemoryAuthentication().withUser("Admin").password("{​​​​​​​noop}​​​​​​​admin132").roles("ADMIN");
-		auth.inMemoryAuthentication().withUser("Marleyb").password("{​​​​​​​noop}​​​​​​​marleyb123").roles("USER");
-		auth.inMemoryAuthentication().withUser("Charliep").password("{​​​​​​​noop}​​​​​​​charleip123").roles("USER");
-		auth.inMemoryAuthentication().withUser("Milesd").password("{​​​​​​​noop}​​​​​​​milesd123").roles("USER");
-		auth.inMemoryAuthentication().withUser("Keithj").password("{​​​​​​​noop}​​​​​​​keithj123").roles("USER");
-
+	public void globalConfig(AuthenticationManagerBuilder auth)  {
+		
+		try {
+			//Authentification en mémoire static
+			auth.inMemoryAuthentication().withUser("Admin").password("{​​​​​​​noop}​​​​​​​admin132").roles("ADMIN");
+			auth.inMemoryAuthentication().withUser("Marleyb").password("{​​​​​​​noop}​​​​​​​marleyb123").roles("USER");
+			auth.inMemoryAuthentication().withUser("Charliep").password("{​​​​​​​noop}​​​​​​​charleip123").roles("USER");
+			auth.inMemoryAuthentication().withUser("Milesd").password("{​​​​​​​noop}​​​​​​​milesd123").roles("USER");
+			auth.inMemoryAuthentication().withUser("Keithj").password("{​​​​​​​noop}​​​​​​​keithj123").roles("USER");
+		}catch (Exception e) {
+			e.getMessage();
+		}
 	}
 
 	// on configure nos servcies HTTP en lui passant les méthodes accessibles 
 	// (GEt/ post) dans les antMatchers ( qui coreespondent au URl de notre appli ainsi que le role de l'accebilité
+	
+	/**
+	 * Configuration des accès Http de l'application
+	 * ainsi que le routing de l'application
+	 * @param http {@link HttpSecurity}
+	 */	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		//Instanciation d'un cors config
@@ -91,17 +90,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.csrf().disable()
 				.formLogin().disable();
 
-//		// You can customize the following part based on your project, it's only a sample
-//		http
-//		.authorizeRequests()
-//		.antMatchers("/**")
-//		.permitAll()
-//		.anyRequest()
-//		.authenticated()
-//		.and()
-//		.csrf()
-//		.disable()
-//		.cors()
-//		.configurationSource(request -> corsConfiguration);
 	}
 }
+
+//// You can customize the following part based on your project, it's only a sample
+//http
+//.authorizeRequests()
+//.antMatchers("/**")
+//.permitAll()
+//.anyRequest()
+//.authenticated()
+//.and()
+//.csrf()
+//.disable()
+//.cors()
+//.configurationSource(request -> corsConfiguration);
+
+//        @Bean
+//        CorsConfigurationSource corsConfigurationSource() {​​​​​​​
+//            CorsConfiguration config = new CorsConfiguration();
+//            config.setAllowedOrigins(Arrays.asList("http://localhost:4200","https://localhost:9000"));
+//            config.setAllowedMethods(Arrays.asList("GET","POST"));
+//            config.setAllowCredentials(true);
+//            //the below three lines will add the relevant CORS response headers
+//            config.addAllowedOrigin("http://localhost:4200");
+//            config.addAllowedOrigin("http://localhost:9000");
+//            config.addAllowedHeader("*");
+//            config.addAllowedMethod("*");
+//            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//            source.registerCorsConfiguration("/**", config);
+//            return source;
+//        }​​​​​​​

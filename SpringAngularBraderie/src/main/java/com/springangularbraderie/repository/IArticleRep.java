@@ -13,6 +13,7 @@ import com.springangularbraderie.model.Article;
  * @author JRSS
  *	Repository de gestion des Articles base de données
  */
+
 @Repository
 public interface IArticleRep extends JpaRepository<Article, Integer> {
 

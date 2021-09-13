@@ -1,3 +1,6 @@
+/**
+ * Package bean
+ */
 package com.springangularbraderie.model;
 
 import java.io.Serializable;
@@ -16,8 +19,8 @@ import javax.persistence.Transient;
 import lombok.Data;
 
 /**
- * @author sandrine
- *
+ * @author JRSS
+ * Fichier Bean Panier
  */
 
 @Data
@@ -25,51 +28,58 @@ import lombok.Data;
 @Table(name = "T_Panier_SPRING")
 public class Panier implements Serializable {
     
-    /**
-     * 
-     */
-	
     private static final long serialVersionUID = 2608804565680180566L;
 
+    /**
+     * identifiant de la ligne de panier {@link Integer}
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPanier;
 
+    /**
+     * Relie un Panier a un utilisateur {@link Account}
+     */
     @ManyToOne(targetEntity = Account.class, fetch = FetchType.EAGER)
     @JoinColumn(name="idUser", referencedColumnName = "idUser", nullable = false)
     private Account User; 
     
+    /**
+     * Relie un Panier a un Article {@link Article}
+     */
     @ManyToOne(targetEntity = Article.class, fetch = FetchType.EAGER)
     @JoinColumn(name="idArticle", referencedColumnName = "idArticle", nullable=false)
     private Article Article;
     
+    /**
+     * Permet de stocker la quantite commandé par l'utilisateur {@link Integer}
+     */
     @Column(nullable = false, length = 5)
     private int quantite;
     
+    /**
+     * Valeur non sauvé, mais utile pour le bon déroulement de l'appli {@link Integer}
+     */
     @Transient
     private int prix;
     
+    
+    /**
+     * Constructeur Basique de la classe {@link Panier}
+     */
     public Panier() {
         
     }
 
- 
-
     /**
-     * @param idUser
-     * @param idArticle
-     * @param quantite
+     * Permet de construire un Panier Avec tous ses attributs
+     * @param p_account {@link }
+     * @param p_Article {@link Article}
+     * @param quantite {@link Integer}
      */
-    public Panier(Account p_User, Article p_Article, int quantite) {
-        this.User = p_User;
+    public Panier(Account p_account, Article p_Article, int quantite) {
+        this.User = p_account;
         this.Article = p_Article;
         this.quantite = quantite;
     }
-
-    @Override
-    public String toString() {
-        return "Panier [idPanier=" + idPanier + ", User=" + User + ", Article=" + Article + ", quantite="
-                + quantite + "]";
-    }
-
 }

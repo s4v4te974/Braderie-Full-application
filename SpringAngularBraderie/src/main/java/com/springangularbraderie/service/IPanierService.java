@@ -4,6 +4,7 @@
 package com.springangularbraderie.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.springangularbraderie.model.Article;
 import com.springangularbraderie.model.Panier;
@@ -33,7 +34,8 @@ public interface IPanierService {
 
 	/**
 	 * Récupère une liste de Panier appartenant à un User
-	 * @param idUser {@link Integer}
+	 * @param p_id {@link Integer}
+	 * @return Liste Panier {@link Optional} {@link Panier}
 	 */
 	public List<Panier> getListArticle(int p_id);
 

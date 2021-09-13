@@ -35,8 +35,8 @@ public class UserRestController {
 
 	/**
 	 * Permet de logger un User
-	 * @param json
-	 * @return User {@link User}
+	 * @param user {@link Account}
+	 * @return User {@link Account}
 	 */
 	@PostMapping(path="/user", produces= "application/json")
 	public Account getCurrentConnectUser(@RequestBody Account user) {

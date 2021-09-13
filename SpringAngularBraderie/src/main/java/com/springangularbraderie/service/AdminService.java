@@ -54,7 +54,7 @@ public class AdminService implements IAdminService {
 	/**
 	 * permet d'updater les attributs d'un article
 	 * 
-	 * @param p_idArticle {@link Article}
+	 * @param p_article {@link Article}
 	 * @return article {@link Article}
 	 */
 	@Transactional

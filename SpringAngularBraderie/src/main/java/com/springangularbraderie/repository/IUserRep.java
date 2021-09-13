@@ -25,7 +25,7 @@ public interface IUserRep extends JpaRepository<Account, Integer> {
 	
 	/**
 	 * permet de chercher dans la base de données un {@link Account} lié au credential 
-	 * @param p_idUser {@link Integer}
+	 * @param login {@link Integer}
 	 * @return Utilisateur {@link Account}
 	 */
 	Account findOneByLogin(String login);
