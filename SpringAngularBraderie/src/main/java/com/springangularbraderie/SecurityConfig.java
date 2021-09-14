@@ -5,6 +5,7 @@ package com.springangularbraderie;
 
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,6 +13,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 
 
@@ -29,6 +32,11 @@ import org.springframework.web.cors.CorsConfiguration;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+	    return new BCryptPasswordEncoder();
+	}
 
 
 	/**
@@ -40,8 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		try {
 			//Authentification en mémoire static
-			auth.inMemoryAuthentication().withUser("Admin").password("{​​​​​​​noop}​​​​​​​admin132").roles("ADMIN");
-			auth.inMemoryAuthentication().withUser("Marleyb").password("{​​​​​​​noop}​​​​​​​marleyb123").roles("USER");
+			
+			auth.inMemoryAuthentication().withUser("Admin").password(passwordEncoder().encode("admin132")).roles("ADMIN");
+			//auth.inMemoryAuthentication().withUser("Admin").password("​​​​​​​{noop}admin132").roles("ADMIN");
+			auth.inMemoryAuthentication().withUser("Marleyb").password("{noop}marleyb123").roles("USER");
 			auth.inMemoryAuthentication().withUser("Charliep").password("{​​​​​​​noop}​​​​​​​charleip123").roles("USER");
 			auth.inMemoryAuthentication().withUser("Milesd").password("{​​​​​​​noop}​​​​​​​milesd123").roles("USER");
 			auth.inMemoryAuthentication().withUser("Keithj").password("{​​​​​​​noop}​​​​​​​keithj123").roles("USER");
@@ -78,11 +88,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.httpBasic()
 				.and()
 				.authorizeRequests()
-				.antMatchers("/**").permitAll()
+				.antMatchers("/**").hasRole("ADMIN")
 				.antMatchers(HttpMethod.GET, "/magasin/getAllArticle/**").hasRole("USER")
 				.antMatchers(HttpMethod.GET, "/magasin/getListPanier").hasRole("USER")
 				.antMatchers(HttpMethod.GET, "/magasin/getArticle/**").hasRole("USER")
-				.antMatchers(HttpMethod.POST, "/magasin/savePanier/**").hasRole("ADMIN")
+				.antMatchers(HttpMethod.POST, "/magasin/savePanier/**").hasRole("USER")
 				.antMatchers(HttpMethod.POST, "/index/user/**").hasRole("USER")
 				.antMatchers(HttpMethod.DELETE, "/magasin/clear/**").hasRole("USER")
 				.antMatchers(HttpMethod.DELETE, "caddie/removeArticle/**").hasRole("USER")    

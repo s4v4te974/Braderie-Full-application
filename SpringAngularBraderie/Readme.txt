@@ -2,11 +2,11 @@ Informations concernant le projet
 
 url de l'application : 
 	
-	something/something/something
+	http://localhost:9000/braderie
 	
 Lien vers le service REST: 
 
-	http://localhost:9000/SpringAngularBraderie/swagger-ui.html
+	http://localhost:9000/braderie/swagger-ui.html
 
 Information de connexion : 
 
