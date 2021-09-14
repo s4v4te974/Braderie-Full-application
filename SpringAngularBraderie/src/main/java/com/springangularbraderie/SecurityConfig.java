@@ -50,11 +50,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			//Authentification en mémoire static
 			
 			auth.inMemoryAuthentication().withUser("Admin").password(passwordEncoder().encode("admin132")).roles("ADMIN");
+			auth.inMemoryAuthentication().withUser("Marleyb").password(passwordEncoder().encode("marleyb123")).roles("USER");
+			auth.inMemoryAuthentication().withUser("Charliep").password(passwordEncoder().encode("charleip123")).roles("USER");
+			auth.inMemoryAuthentication().withUser("Milesd").password(passwordEncoder().encode("​​​​​​​milesd123")).roles("USER");
+			auth.inMemoryAuthentication().withUser("Keithj").password(passwordEncoder().encode("​​​​​​​keithj123")).roles("USER");
+			
 			//auth.inMemoryAuthentication().withUser("Admin").password("​​​​​​​{noop}admin132").roles("ADMIN");
-			auth.inMemoryAuthentication().withUser("Marleyb").password("{noop}marleyb123").roles("USER");
-			auth.inMemoryAuthentication().withUser("Charliep").password("{​​​​​​​noop}​​​​​​​charleip123").roles("USER");
-			auth.inMemoryAuthentication().withUser("Milesd").password("{​​​​​​​noop}​​​​​​​milesd123").roles("USER");
-			auth.inMemoryAuthentication().withUser("Keithj").password("{​​​​​​​noop}​​​​​​​keithj123").roles("USER");
+//			auth.inMemoryAuthentication().withUser("Marleyb").password("{noop}marleyb123").roles("USER");
+//			auth.inMemoryAuthentication().withUser("Charliep").password("{​​​​​​​noop}​​​​​​​charleip123").roles("USER");
+//			auth.inMemoryAuthentication().withUser("Milesd").password("{​​​​​​​noop}​​​​​​​milesd123").roles("USER");
+//			auth.inMemoryAuthentication().withUser("Keithj").password("{​​​​​​​noop}​​​​​​​keithj123").roles("USER");
 		}catch (Exception e) {
 			e.getMessage();
 		}
@@ -88,14 +93,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.httpBasic()
 				.and()
 				.authorizeRequests()
-				.antMatchers("/**").hasRole("ADMIN")
-				.antMatchers(HttpMethod.GET, "/magasin/getAllArticle/**").hasRole("USER")
-				.antMatchers(HttpMethod.GET, "/magasin/getListPanier").hasRole("USER")
-				.antMatchers(HttpMethod.GET, "/magasin/getArticle/**").hasRole("USER")
-				.antMatchers(HttpMethod.POST, "/magasin/savePanier/**").hasRole("USER")
-				.antMatchers(HttpMethod.POST, "/index/user/**").hasRole("USER")
-				.antMatchers(HttpMethod.DELETE, "/magasin/clear/**").hasRole("USER")
-				.antMatchers(HttpMethod.DELETE, "caddie/removeArticle/**").hasRole("USER")    
+				.antMatchers(HttpMethod.GET, "/magasin/getAllArticle/**").hasAnyRole("USER","ADMIN")
+				.antMatchers(HttpMethod.GET, "/magasin/getListPanier").hasAnyRole("USER","ADMIN")
+				.antMatchers(HttpMethod.GET, "/magasin/getArticle/**").hasAnyRole("USER","ADMIN")
+				.antMatchers(HttpMethod.POST, "/magasin/savePanier/**").hasAnyRole("USER","ADMIN")
+				.antMatchers(HttpMethod.POST, "/index/user/**").hasAnyRole("USER","ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/magasin/clear/**").hasAnyRole("USER","ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/caddie/removeArticle/**").hasAnyRole("USER","ADMIN")  
+				.antMatchers(HttpMethod.POST, "/Admin/createArticle/**").hasRole("ADMIN") 
+				.antMatchers(HttpMethod.DELETE, "/Admin/removeAdmin/**").hasRole("ADMIN") 
+				.antMatchers(HttpMethod.PUT, "/Admin/updateArticle/**").hasRole("ADMIN") 
 				.and()
 				.csrf().disable()
 				.formLogin().disable();
