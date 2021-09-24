@@ -94,6 +94,4 @@ public class AdminService implements IAdminService {
 		
 		log.info(" Article supprimé de la base de données");
 	}
-	
-	
 }
