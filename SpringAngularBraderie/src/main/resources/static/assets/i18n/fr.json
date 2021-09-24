@@ -1,10 +1,38 @@
-{
-  "ACCUEIL": {
-    "SELECT": "Sélectionner langue",
-    "LOGIN": "Identifiant",
-    "PASSWORD": "Mot de passe",
-    "TITLE": "Merci de vous connecter",
-    "BOUTON" : "Connexion",
-    "WELCOME" : "Bienvenue"
-  }
-}
+ {
+     "ACCUEIL": {
+         "SELECT": "Sélectionner langue",
+         "LOGIN": "Identifiant",
+         "PASSWORD": "Mot de passe",
+         "TITLE": "Merci de vous connecter",
+         "BOUTON": "Connexion",
+         "WELCOME": "Bienvenue",
+         "LOGOUT": "Déconnexion "
+     },
+     "MAGASIN": {
+         "SELECT": "Sélectionner langue",
+         "LOGIN": "Identifiant",
+         "PASSWORD": "Mot de passe",
+         "TITLE": "Merci de vous connecter",
+         "BOUTON": "CONNEXION",
+         "AJOUTER": "AJOUTER",
+         "MARQUE": "MARQUE",
+         "PRIX": "PRIX(€)",
+         "QUANTITE": "QUANTITE",
+         "PRIXLIGNE": "TOTAL PAR ARTICLE(€)",
+         "SUPPRIMER": "SUPPRIMER",
+         "RESTAURERPANIER": "RESTAURER PANIER",
+         "SUPPRIMERPANIER": "SUPPRIMER PANIER",
+         "SAUVEGARDERPANIER": "SAUVEGARDER PANIER",
+         "PRIXTOTAL": "PRIX TOTAL",
+         "PANIERVIDE": "PANIER VIDE",
+         "CONTENUDUPANIER": "VOTRE PANIER",
+         "UPDATE": "MODIFIER",
+         "CREERARTICLE": "CREER UN NOUVEL ARTICLE",
+         "LISTEDESARTICLES": "LISTE DES ARTICLES",
+         "VALIDER": "VALIDER",
+         "CREATEART": "CREATION D'UN NOUVEL ARTICLE",
+         "UPDATEART": " MISE A JOUR D'UN ARTICLE",
+         "RETOUR": "RETOUR",
+         "MENUADMIN": "MENU ADMINISTRATEUR"
+     }
+ }

@@ -5,13 +5,34 @@
     "PASSWORD": "Password",
     "TITLE": "Please sign in",
     "BOUTON" : "Sign in",
-    "WELCOME" : "Welcome"
+    "WELCOME" : "Welcome",
+    "LOGOUT": "Logout "
   },
   "MAGASIN": {
     "SELECT": "Select language",
     "LOGIN": "Login",
     "PASSWORD": "Password",
     "TITLE": "Please sign in",
-    "BOUTON" : "Sign in"
+    "BOUTON" : "Sign in",
+    "AJOUTER" : "ADD",
+    "MARQUE" : "BRAND",
+    "PRIX" : "PRICE(€)",
+    "QUANTITE" : "QUANTITY",
+    "SUPPRIMER" : "DELETE",
+    "PRIXLIGNE" : "TOTAL BY ITEMS(€)",
+    "RESTAURERPANIER" : "RESTORE BUCKET",
+    "SUPPRIMERPANIER" : "DELETE BUCKET",
+    "SAUVEGARDERPANIER" : "SAVE BUCKET",
+    "PRIXTOTAL" : "TOTAL PRICE",
+    "PANIERVIDE" : "EMPTY BUCKET",
+    "CONTENUDUPANIER" : "YOUR BUCKET",
+    "UPDATE" : "UPDATE",
+    "CREERARTICLE" : "CREATE NEW ITEM",
+    "LISTEDESARTICLES" : "LIST OF ITEMS",
+    "VALIDER" : "SUBMIT",
+    "CREATEART" : "CREATING A NEW ARTICLE",
+    "UPDATEART" : " UPDATE AN ARTICLE",
+    "RETOUR" : "BACK",
+    "MENUADMIN" : "ADMINISTRATOR SETTINGS"
   }
 }
