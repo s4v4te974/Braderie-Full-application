@@ -12,8 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 /**
  * 
  * @author JRSS
@@ -21,7 +19,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  *
  */
 @SpringBootApplication
-@EnableSwagger2
 public class SpringAngularBraderieApplication {
 	
 	
