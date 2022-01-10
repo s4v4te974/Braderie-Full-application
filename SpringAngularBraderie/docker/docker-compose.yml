@@ -1,0 +1,49 @@
+#specifie la version à utiliser
+version: "3.1"
+
+#specifier les différents services qui seront executés
+services:
+  postgresql:
+    
+    image: postgres
+    ports: 
+      - "5432:5432"
+    #Indique l'endroit de sauvegarde pour la peristance des données
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  
+    #indication des credentials
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=afpa123
+#    restart: always
+  
+  #definit les applications qui seront utiliser dans notre container
+  #ceux ci doivent avoir un dockerfile
+  #container de la base de données
+  app:
+    #definir un nom à l'application
+    container_name: springbootapp
+    
+    #definit le nom de l'image
+    image: springangularbraderie:latest
+    
+    #spécifier le port
+    ports:
+     - "9000:9000"
+    #indiquer la dépendance
+    depends_on: 
+      - postgresql
+    
+    # récupération des informations de connexion à la base postgres
+    #  
+    environment:
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/braderie
+    - POSTGRES_PASSWORD=lab123
+    - POSTGRES_USER=lab
+    - POSTGRES_DB=braderie
+    - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+#    restart: always
+
+volumes:
+  db-data: {}
