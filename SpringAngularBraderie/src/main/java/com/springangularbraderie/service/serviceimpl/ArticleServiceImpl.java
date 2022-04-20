@@ -1,7 +1,7 @@
 /**
  * Package Service
  */
-package com.springangularbraderie.service;
+package com.springangularbraderie.service.serviceimpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.springangularbraderie.model.Article;
 import com.springangularbraderie.repository.IArticleRep;
+import com.springangularbraderie.service.IArticleService;
 
 /**
  * @author JRSS
@@ -18,7 +19,7 @@ import com.springangularbraderie.repository.IArticleRep;
  */
 
 @Service
-public class ArticleService implements IArticleService{
+public class ArticleServiceImpl implements IArticleService{
 
 	@Autowired
 	IArticleRep hArticleRep;
@@ -27,12 +28,9 @@ public class ArticleService implements IArticleService{
 	 * Permet de retourner la liste des articles
 	 * @return list Panier {@link List} {@link Article}
 	 */
-	
 	@Override
 	public List<Article> getAllArticle() {
-
 		return hArticleRep.findAll();
-
 	}
 
 	/**
@@ -42,12 +40,6 @@ public class ArticleService implements IArticleService{
 	 */
 	@Override
 	public Optional<Article> getArticle(int idArticle) {
-		
-		Optional<Article> hArticle = null;
-
-		hArticle = hArticleRep.findById(idArticle);
-
-		return hArticle;
+		return hArticleRep.findById(idArticle);
 	}
-
 }

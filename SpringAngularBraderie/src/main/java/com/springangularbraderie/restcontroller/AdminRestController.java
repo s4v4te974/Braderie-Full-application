@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springangularbraderie.model.Article;
-import com.springangularbraderie.service.AdminService;
-import com.springangularbraderie.service.PanierService;
+import com.springangularbraderie.service.serviceimpl.AdminServiceImpl;
+import com.springangularbraderie.service.serviceimpl.PanierServiceImpl;
 
 /**
  * @author JRSS
@@ -28,10 +28,10 @@ import com.springangularbraderie.service.PanierService;
 public class AdminRestController {
 
 	@Autowired
-	AdminService adminService;
+	AdminServiceImpl adminService;
 	
 	@Autowired
-	PanierService panierService;
+	PanierServiceImpl panierService;
 
 	/**
 	 * Permet de persister un article 

@@ -11,7 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author JRSS 
@@ -19,6 +22,9 @@ import lombok.Data;
  */
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="T_User_SPRING")
 public class Account implements Serializable {
@@ -57,26 +63,4 @@ public class Account implements Serializable {
     @Column(nullable = false, length = 10)
     private String role;
     
-    /**
-     * Constructeur Basique de la classe {@link Account}
-     */
-    public Account() {
-
-    }
-    
-    /**
-     * Permet de construire un compte utilisateur avec tous les attributs
-     * @param idAccount {@link Integer}
-     * @param login {@link String}
-     * @param pass {@link String}
-     * @param nbConnexion {@link Integer}
-     * @param role {@link String}
-     */
-    public Account(int idAccount, String login, String pass, int nbConnexion, String role) {
-        this.idUser = idAccount;
-        this.login = login;
-        this.pass = pass;
-        this.nbConnexion = nbConnexion;
-        this.role = role;
-    }
 }

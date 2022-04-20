@@ -16,7 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author JRSS
@@ -24,6 +27,9 @@ import lombok.Data;
  */
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "T_Panier_SPRING")
 public class Panier implements Serializable {
@@ -62,24 +68,4 @@ public class Panier implements Serializable {
      */
     @Transient
     private int prix;
-    
-    
-    /**
-     * Constructeur Basique de la classe {@link Panier}
-     */
-    public Panier() {
-        
-    }
-
-    /**
-     * Permet de construire un Panier Avec tous ses attributs
-     * @param account {@link }
-     * @param article {@link Article}
-     * @param quantite {@link Integer}
-     */
-    public Panier(Account account, Article article, int quantite) {
-        this.User = account;
-        this.Article = article;
-        this.quantite = quantite;
-    }
 }

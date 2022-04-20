@@ -1,15 +1,17 @@
 /**
  * Package Service
  */
-package com.springangularbraderie.service;
+package com.springangularbraderie.service.serviceimpl;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.springangularbraderie.model.Article;
 import com.springangularbraderie.repository.IAdminRep;
 import com.springangularbraderie.repository.IArticleRep;
+import com.springangularbraderie.service.IAdminService;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -22,13 +24,13 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Data
 @Slf4j
-public class AdminService implements IAdminService {
+public class AdminServiceImpl implements IAdminService {
 	
 	@Autowired
 	IAdminRep adminRep;
 	
 	@Autowired
-	ArticleService articleService;
+	ArticleServiceImpl articleService;
 	
 	@Autowired
 	IArticleRep articleRep;
@@ -42,13 +44,17 @@ public class AdminService implements IAdminService {
 	@Transactional
 	public Article createArticleAdmin(Article article) {
 		
-		Article articleCreate = new Article(article.getDescription(), article.getMarque(), article.getPrix());
-		
-		adminRep.save(articleCreate);
+		Article createArticle = Article.builder() //
+								.description(article.getDescription()) //
+								.marque(article.getMarque()) //
+								.prix(article.getPrix()) //
+								.build();
+				
+		adminRep.save(createArticle);
 		
 		log.info("Article créé et insérer dans la base de données");
 		
-		return articleCreate;
+		return createArticle;
 	}
 
 	/**
@@ -86,11 +92,11 @@ public class AdminService implements IAdminService {
 	@Transactional
 	public void removeArticleAdmin(Integer idArticle) {
 		
-		// on récupère notre article
-		Article articleBDD = articleService.getArticle(idArticle).get(); 
+		Article articleToRemove = articleService.getArticle(idArticle).get();
 		
-		// on le supprime de la BDD
-		articleRep.delete(articleBDD);
+		if(articleToRemove != null) {
+			articleRep.delete(articleToRemove);
+		}
 		
 		log.info(" Article supprimé de la base de données");
 	}

@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -20,6 +21,7 @@ import lombok.Data;
  */
 
 @Data
+@Builder
 @Entity
 @Table(name = "T_Article_SPRING")
 public class Article implements Serializable {
@@ -50,37 +52,4 @@ public class Article implements Serializable {
       */
      @Column(nullable = false, length = 5)
     private int prix;
-    
-     /**
-      * Constructeur Basique de la classe {@link Article}
-      */
-    public Article() { 
-    }
-
-    /**
-     * Permet de construire un Article avec tous ses Attributs
-     * @param idArticle {@link Integer}
-     * @param description {@link String}
-     * @param marque {@link String}
-     * @param prix {@link Integer}
-     */
-    public Article(int idArticle, String description, String marque, int prix) {
-        this.idArticle = idArticle;
-        this.description = description;
-        this.marque = marque;
-        this.prix = prix;
-        
-    }
-
-    /**
-     * Permet de construire un Article spécifique
-     * @param description {@link String}
-     * @param marque {@link String}
-     * @param prix {@link Integer}
-     */
-    public Article(String description, String marque, int prix) {
-        this.description = description;
-        this.prix = prix;
-        this.marque = marque;        
-    }
 }

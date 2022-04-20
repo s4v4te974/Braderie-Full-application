@@ -27,11 +27,9 @@ public interface IPanierRep extends JpaRepository<Panier, Integer> {
 	 * @param user {@link Integer}
 	 * @return listePanier {@link List} {@link Panier}
 	 */
-	// Methode qui retourne la liste deu Panier ( Article + colonne Article) en fonction de l'user passer en paramètre
 	@Query("select p from Panier p where p.User.idUser= :idUser")
 	List<Panier> getListPaniers(@Param("idUser") Integer idUser);
 	
-	// Methode qui retourne une ligne de panier en fonction de l'user et de l'article ( utilisé pour l'update)
 	/**
 	 * Permet de recuperer un panier par l'iduser et idArticle
 	 * @param iduser {@link Integer}

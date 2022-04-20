@@ -1,7 +1,7 @@
 /**
  * Package Service
  */
-package com.springangularbraderie.service;
+package com.springangularbraderie.service.serviceimpl;
 
 import java.util.Optional;
 
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.springangularbraderie.model.Account;
 import com.springangularbraderie.repository.IUserRep;
+import com.springangularbraderie.service.IUserService;
 
 
 /**
@@ -18,7 +19,7 @@ import com.springangularbraderie.repository.IUserRep;
  */
 
 @Service
-public class UserService implements IUserService{
+public class UserServiceImpl implements IUserService{
 
 	@Autowired
 	IUserRep hUserRep;
@@ -43,11 +44,7 @@ public class UserService implements IUserService{
 	 * @return Utilisateur {@link Account}
 	 */
 	public Optional<Account> findByIdUser(int p_idUser) {
-		
-		Optional<Account> hUser = null;
-		
-		hUser = hUserRep.findById(p_idUser);
-		
-		return hUser;
+		return hUserRep.findById(p_idUser);
+
 	}
 }
