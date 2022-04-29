@@ -40,11 +40,10 @@ public class UserServiceImpl implements IUserService{
 	/**
 	 * Permet de récupérer un utilisateur via son ID
 	 * 
-	 * @param p_idUser {@link Integer}
+	 * @param user {@link Integer}
 	 * @return Utilisateur {@link Account}
 	 */
-	public Optional<Account> findByIdUser(int p_idUser) {
-		return hUserRep.findById(p_idUser);
-
+	public Optional<Account> findByIdUser(int iduser) {
+		return hUserRep.findById(iduser);
 	}
 }

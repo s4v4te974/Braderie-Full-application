@@ -63,7 +63,6 @@ public class AdminServiceImpl implements IAdminService {
 	 * @param article {@link Article}
 	 * @return article {@link Article}
 	 */
-	@Transactional
 	public Article updateArticleAdmin(Article article) {
 		
 		// recupere l'article par son ID 
@@ -89,7 +88,6 @@ public class AdminServiceImpl implements IAdminService {
 	 * Permet de supprimer un article de la base de données
 	 * @param idArticle {@link Integer}
 	 */
-	@Transactional
 	public void removeArticleAdmin(Integer idArticle) {
 		
 		Article articleToRemove = articleService.getArticle(idArticle).get();

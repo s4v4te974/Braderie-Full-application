@@ -64,6 +64,10 @@
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -82,11 +86,11 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		    <testResources>
-        <testResource>
-            <directory>${project.basedir}/src/test/resources</directory>
-        </testResource>
-    </testResources>
+		<testResources>
+			<testResource>
+				<directory>${project.basedir}/src/test/resources</directory>
+			</testResource>
+		</testResources>
 	</build>
 
 </project>

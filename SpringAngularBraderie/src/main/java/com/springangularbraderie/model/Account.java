@@ -53,7 +53,7 @@ public class Account implements Serializable {
     /**
      * Nombre de connexion de l'utilisateur {@link Integer}
      */
-    @Column(nullable = false, length = 100)
+    @Column(nullable = true, length = 100)
     private int nbConnexion;
     
     /**

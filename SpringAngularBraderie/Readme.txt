@@ -28,7 +28,3 @@ de "spring.jpa.hibernate.ddl-auto=" et de lui assigner la valeur "validate" dans
 (projectName/src/main/ressources/application.properties):
 
 --------spring.jpa.hibernate.ddl-auto=validate-----
-
-
-
-
