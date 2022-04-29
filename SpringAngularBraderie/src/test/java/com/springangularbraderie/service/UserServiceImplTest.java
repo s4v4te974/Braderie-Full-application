@@ -3,31 +3,28 @@ package com.springangularbraderie.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 
-import com.springangularbraderie.model.Account;
-import com.springangularbraderie.repository.IUserRep;
+import com.springangularbraderie.entity.Account;
 import com.springangularbraderie.service.serviceimpl.UserServiceImpl;
 
 @SpringBootTest
+@Sql({"/schema.sql", "/data.sql"})
 class UserServiceImplTest {
 
 	@Autowired
-	UserServiceImpl UserService;
-	
-	@Autowired
-	IUserRep userRep;
+	UserServiceImpl userService;
+
 	
 	@Test
 	void enableToLogTest() {
 		
 		Account expected = accountForTest();
 		
-		Account input = UserService.enableTolog(expected.getLogin(), expected.getPass());
+		Account input = userService.enableTolog(expected.getLogin(), expected.getPass());
 		
 		assertEquals(input.getLogin(), expected.getLogin());
 		assertEquals(input.getPass(), input.getPass());
@@ -40,12 +37,12 @@ class UserServiceImplTest {
 		
 		int user = 1;
 		
-		Optional<Account> input = userRep.findById(user);
+		Account input = userService.findByIdUser(user);
 		
 		assertNotNull(input);
-		assertEquals(input.get().getLogin(), expected.getLogin());
-		assertEquals(input.get().getPass(), expected.getPass());
-		assertEquals(input.get().getIdUser(), user);
+		assertEquals(input.getLogin(), expected.getLogin());
+		assertEquals(input.getPass(), expected.getPass());
+		assertEquals(input.getIdUser(), user);
 	}
 	
 	private Account accountForTest() {

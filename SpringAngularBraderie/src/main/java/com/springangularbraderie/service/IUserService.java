@@ -3,7 +3,7 @@
  */
 package com.springangularbraderie.service;
 
-import com.springangularbraderie.model.Account;
+import com.springangularbraderie.entity.Account;
 
 /**
  * @author JRSS

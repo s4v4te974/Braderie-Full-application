@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.springangularbraderie.model.Panier;
+import com.springangularbraderie.entity.Panier;
 
 /**
  * @author JRSS
@@ -27,7 +27,7 @@ public interface IPanierRep extends JpaRepository<Panier, Integer> {
 	 * @param user {@link Integer}
 	 * @return listePanier {@link List} {@link Panier}
 	 */
-	@Query("select p from Panier p where p.User.idUser= :idUser")
+	@Query("select p from Panier p where p.user.idUser= :idUser")
 	List<Panier> getListPaniers(@Param("idUser") Integer idUser);
 	
 	/**
@@ -36,7 +36,7 @@ public interface IPanierRep extends JpaRepository<Panier, Integer> {
 	 * @param idArticle {@link Integer}
 	 * @return panier {@link Panier}
 	 */
-	@Query("select p from Panier p where p.User.idUser= :idUser and p.Article.idArticle= :idArticle")
+	@Query("select p from Panier p where p.user.idUser= :idUser and p.article.idArticle= :idArticle")
 	Panier getByUserAndArticle(@Param("idUser")Integer iduser, @Param("idArticle")Integer idArticle) ;
 	
 	/**
@@ -44,7 +44,7 @@ public interface IPanierRep extends JpaRepository<Panier, Integer> {
 	 * @param idArticle {@link Integer}
 	 * @return listePanier {@link List} {@link Panier}
 	 */
-	@Query("select p from Panier p where p.Article.idArticle= :idArticle")
+	@Query("select p from Panier p where p.article.idArticle= :idArticle")
 	List<Panier> deletePanierByIDArticle(@Param("idArticle")Integer idArticle);
 	
 }

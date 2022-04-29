@@ -9,7 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springangularbraderie.model.Article;
+import com.springangularbraderie.entity.Article;
 import com.springangularbraderie.repository.IArticleRep;
 import com.springangularbraderie.service.IArticleService;
 
@@ -39,7 +39,14 @@ public class ArticleServiceImpl implements IArticleService{
 	 * @return list Panier {@link Optional} {@link Article}
 	 */
 	@Override
-	public Optional<Article> getArticle(int idArticle) {
-		return hArticleRep.findById(idArticle);
+	public Article getArticle(int idArticle) {
+		
+		Optional<Article> getOneArticle = hArticleRep.findById(idArticle);
+		
+		if(getOneArticle.isPresent()) {
+			return getOneArticle.get();
+		}else {
+			return null;
+		}
 	}
 }
