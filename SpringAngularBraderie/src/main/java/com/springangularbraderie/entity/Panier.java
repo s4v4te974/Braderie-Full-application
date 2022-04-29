@@ -1,7 +1,7 @@
 /**
  * Package bean
  */
-package com.springangularbraderie.model;
+package com.springangularbraderie.entity;
 
 import java.io.Serializable;
 
@@ -48,14 +48,14 @@ public class Panier implements Serializable {
      */
     @ManyToOne(targetEntity = Account.class, fetch = FetchType.EAGER)
     @JoinColumn(name="idUser", referencedColumnName = "idUser", nullable = false)
-    private Account User; 
+    private Account user; 
     
     /**
      * Relie un Panier a un Article {@link Article}
      */
     @ManyToOne(targetEntity = Article.class, fetch = FetchType.EAGER)
     @JoinColumn(name="idArticle", referencedColumnName = "idArticle", nullable=false)
-    private Article Article;
+    private Article article;
     
     /**
      * Permet de stocker la quantite commandé par l'utilisateur {@link Integer}

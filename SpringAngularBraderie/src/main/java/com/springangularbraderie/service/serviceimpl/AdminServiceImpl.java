@@ -3,58 +3,73 @@
  */
 package com.springangularbraderie.service.serviceimpl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springangularbraderie.model.Article;
+import com.springangularbraderie.entity.Article;
+import com.springangularbraderie.entity.Panier;
 import com.springangularbraderie.repository.IAdminRep;
 import com.springangularbraderie.repository.IArticleRep;
+import com.springangularbraderie.repository.IPanierRep;
 import com.springangularbraderie.service.IAdminService;
 
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author JRSS
- * Classe Service de l'admin
+ * @author JRSS Classe Service de l'admin
  *
  */
 @Service
-@Data
 @Slf4j
 public class AdminServiceImpl implements IAdminService {
 	
+	private static final String CREATE_ARTICLE_SUCCESS = "Article créé et insérer dans la base de données";
+	
+	private static final String UPDATE_ARTICLE_SUCCESS = "Article mise à jour dans la base de données";
+	
+	private static final String DELETE_ARTICLE_SUCCESS = " Article supprimé de la base de données";
+
 	@Autowired
 	IAdminRep adminRep;
-	
+
+	@Autowired
+	IPanierRep hPanierRep;
+
 	@Autowired
 	ArticleServiceImpl articleService;
-	
+
 	@Autowired
 	IArticleRep articleRep;
-	
+
 	/**
-	 * Permet de persister un article 
+	 * Permet de persister un article
 	 * 
 	 * @param article {@link Article}
 	 * @return article {@link Article}
 	 */
 	@Transactional
 	public Article createArticleAdmin(Article article) {
-		
-		Article createArticle = Article.builder() //
-								.description(article.getDescription()) //
-								.marque(article.getMarque()) //
-								.prix(article.getPrix()) //
-								.build();
-				
-		adminRep.save(createArticle);
-		
-		log.info("Article créé et insérer dans la base de données");
-		
-		return createArticle;
+
+		if (article != null) {
+			Article createArticle = Article.builder() //
+					.description(article.getDescription()) //
+					.marque(article.getMarque()) //
+					.prix(article.getPrix()) //
+					.build();
+
+			adminRep.save(createArticle);
+
+			log.info(CREATE_ARTICLE_SUCCESS);
+
+			return createArticle;
+
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -64,39 +79,54 @@ public class AdminServiceImpl implements IAdminService {
 	 * @return article {@link Article}
 	 */
 	public Article updateArticleAdmin(Article article) {
+
+		if(article != null) {
+			// recupere l'article par son ID
+			Integer idArticle = article.getIdArticle();
+
+			// recuperer 'article dans la BDD correspondant
+			Article articleBdd = articleService.getArticle(idArticle);
+
+			// on set les nouvelle definition
+			articleBdd.setDescription(article.getDescription());
+			articleBdd.setMarque(article.getMarque());
+			articleBdd.setPrix(article.getPrix());
+
+			// on le sauve dans la BDD
+			adminRep.save(articleBdd);
+
+			log.info(UPDATE_ARTICLE_SUCCESS);
+
+			return articleBdd;
+		}else {
+			return null;
+		}
 		
-		// recupere l'article par son ID 
-		Integer idArticle = article.getIdArticle();
-		
-		// recuperer 'article dans la BDD correspondant
-		Article articleBDD = articleService.getArticle(idArticle).get();
-		
-		// on set les nouvelle definition 
-		articleBDD.setDescription(article.getDescription());
-		articleBDD.setMarque(article.getMarque());
-		articleBDD.setPrix(article.getPrix());
-		
-		// on le sauve dans la BDD 
-		adminRep.save(articleBDD);
-		
-		log.info("Article mise à jour dans la base de données");
-		
-		return articleBDD;
 	}
 
 	/**
 	 * Permet de supprimer un article de la base de données
+	 * 
 	 * @param idArticle {@link Integer}
 	 */
 	public void removeArticleAdmin(Integer idArticle) {
-		
-		Article articleToRemove = articleService.getArticle(idArticle).get();
-		
-		if(articleToRemove != null) {
+
+		Article articleToRemove = articleService.getArticle(idArticle);
+
+		if (articleToRemove != null) {
 			articleRep.delete(articleToRemove);
 		}
-		
-		log.info(" Article supprimé de la base de données");
+
+		log.info(DELETE_ARTICLE_SUCCESS);
 	}
-	
+
+	/**
+	 * Permet de supprimer toutes les lignes de paniers via l'id Article
+	 * 
+	 * @param idArticle {@link Article}
+	 */
+	public void deleteArticle(Integer idArticle) {
+		List<Panier> lPaniers = hPanierRep.deletePanierByIDArticle(idArticle);
+		hPanierRep.deleteAll(lPaniers);
+	}
 }

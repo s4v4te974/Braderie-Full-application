@@ -1,7 +1,7 @@
 /**
  * Package bean
  */
-package com.springangularbraderie.model;
+package com.springangularbraderie.entity;
 
 import java.io.Serializable;
 

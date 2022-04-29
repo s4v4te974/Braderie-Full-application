@@ -6,9 +6,9 @@ package com.springangularbraderie.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.springangularbraderie.model.Article;
-import com.springangularbraderie.model.Panier;
-import com.springangularbraderie.model.Account;
+import com.springangularbraderie.entity.Account;
+import com.springangularbraderie.entity.Article;
+import com.springangularbraderie.entity.Panier;
 
 /**
  * @author JRSS

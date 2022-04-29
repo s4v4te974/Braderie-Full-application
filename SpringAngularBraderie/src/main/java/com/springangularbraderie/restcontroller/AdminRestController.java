@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springangularbraderie.model.Article;
+import com.springangularbraderie.entity.Article;
 import com.springangularbraderie.service.serviceimpl.AdminServiceImpl;
 import com.springangularbraderie.service.serviceimpl.PanierServiceImpl;
 
 /**
- * @author JRSS
- * Restful Admin
+ * @author JRSS Restful Admin
  */
 
 @RestController
@@ -29,26 +28,28 @@ public class AdminRestController {
 
 	@Autowired
 	AdminServiceImpl adminService;
-	
+
 	@Autowired
 	PanierServiceImpl panierService;
 
 	/**
-	 * Permet de persister un article 
+	 * Permet de persister un article
+	 * verifier que l'article n'existe pas déjà
+	 * 
 	 * @param article {@link Article}
 	 * @return article {@link Article}
 	 */
-	
-	@PostMapping(path = "/createArticle", consumes="application/json")
+
+	@PostMapping(path = "/createArticle", consumes = "application/json")
 	public Article createArticle(@RequestBody Article article) {
 
-		// verifier que l'article n'existe pas déjà
-		return adminService.createArticleAdmin(article);		
+		return adminService.createArticleAdmin(article);
 
 	}
 
 	/**
 	 * permet d'updater les attributs d'un article
+	 * 
 	 * @param article {@link Article}
 	 * @return article {@link Article}
 	 */
@@ -58,19 +59,20 @@ public class AdminRestController {
 		return adminService.updateArticleAdmin(article);
 
 	}
-	
+
 	/**
 	 * Permet de supprimer un article de la base de données
+	 * 
 	 * @param idArticle {@link Article}
 	 */
-	@DeleteMapping(path="/removeAdmin/{id}")
+	@DeleteMapping(path = "/removeAdmin/{id}")
 	public void deleteArticle(@PathVariable("id") Integer idArticle) {
-		
-	// supprimer les lignes de panier qui ont le meme ID
-		
-	panierService.deleteArticle(idArticle);
-		
-	adminService.removeArticleAdmin(idArticle);
-		
+
+		// supprimer les lignes de panier qui ont le meme ID
+
+		adminService.deleteArticle(idArticle);
+
+		adminService.removeArticleAdmin(idArticle);
+
 	}
 }

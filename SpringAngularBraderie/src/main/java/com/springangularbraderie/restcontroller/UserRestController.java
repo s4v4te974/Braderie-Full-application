@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springangularbraderie.model.Account;
+import com.springangularbraderie.entity.Account;
 import com.springangularbraderie.service.IArticleService;
 import com.springangularbraderie.service.IUserService;
 
@@ -26,6 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/index")
 @CrossOrigin(origins ="*")
 public class UserRestController {
+	
+	private static final String CURRENT_ACCOUNT = "user authentifié : {} ";
 
 	@Autowired
 	IUserService hUserService;
@@ -41,10 +43,10 @@ public class UserRestController {
 	@PostMapping(path="/user", produces= "application/json")
 	public Account getCurrentConnectUser(@RequestBody Account user) {
 		
-		Account p_user = hUserService.enableTolog(user.getLogin(), user.getPass());
+		Account currentAccount = hUserService.enableTolog(user.getLogin(), user.getPass());
 	
-		log.info("user authentifié : " + p_user);
+		log.info(CURRENT_ACCOUNT, currentAccount);
 		
-		return p_user;
+		return currentAccount;
 	}
 }

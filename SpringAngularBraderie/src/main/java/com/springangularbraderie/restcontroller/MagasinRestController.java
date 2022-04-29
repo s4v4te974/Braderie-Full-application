@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.springangularbraderie.model.Article;
-import com.springangularbraderie.model.Panier;
+
+import com.springangularbraderie.entity.Account;
+import com.springangularbraderie.entity.Article;
+import com.springangularbraderie.entity.Panier;
 import com.springangularbraderie.service.serviceimpl.ArticleServiceImpl;
 import com.springangularbraderie.service.serviceimpl.PanierServiceImpl;
 import com.springangularbraderie.service.serviceimpl.UserServiceImpl;
-import com.springangularbraderie.model.Account;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,6 +35,18 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/magasin")
 @CrossOrigin(origins ="*")
 public class MagasinRestController {
+	
+	private static final String ARTICLE_ADD = "Article ajouté : {}";
+	
+	private static final String ARTICLE_SAVE = "Panier sauvegardé : {}";
+	
+	private static final String DELETE_CADDIE = "Panier supprimé, taille du panier : {}";
+	
+	private static final String GET_PANIER = "Panier récupéré - taille du panier : {}";
+	
+	private static final String SPECIFIC_USER = ", du user : {}";
+	
+	private static final String DELETE_ARTICLE = "Article supprimé : {}";
 
 	@Autowired
 	ArticleServiceImpl hArticleService;
@@ -50,9 +63,7 @@ public class MagasinRestController {
 	 */
 	@GetMapping(path="/getAllArticle", produces= "application/json")
 	public List<Article> getAllArticle() {
-
 		return hArticleService.getAllArticle();
-
 	}
 
 	/**
@@ -63,9 +74,9 @@ public class MagasinRestController {
 	@GetMapping(path="/getArticle", produces= "application/json")
 	public Article getArticleById(int idArticle) {
 
-		Article hArticle = hArticleService.getArticle(idArticle).get();
+		Article hArticle = hArticleService.getArticle(idArticle);
 
-		log.info("Article ajouté : " + hArticle);
+		log.info(ARTICLE_ADD, hArticle);
 
 		return hArticle;
 	}
@@ -88,7 +99,7 @@ public class MagasinRestController {
 			hPanierService.insertArticle(pUser, pArticle, panier.getQuantite());
 		}
 
-		log.info("Panier sauvegardé : " + lPanier);	
+		log.info(ARTICLE_SAVE, lPanier);	
 
 		return lPanier;
 	}
@@ -98,7 +109,7 @@ public class MagasinRestController {
 	 * @param idUser {@link Integer}
 	 */
 	@DeleteMapping(path="/clear/{id}")
-	public void deleteCaddie(@PathVariable("id") int idUser) {
+	public void deletePanier(@PathVariable("id") int idUser) {
 
 		// Suppression de la liste de panier du User dans la BDD
 		hPanierService.deleteAll(idUser);
@@ -106,9 +117,8 @@ public class MagasinRestController {
 		// Récupération de la liste de panier de la BDD (qui doit être vide)
 		List<Panier> listeCaddie = hPanierService.getListArticle(idUser);
 
-		log.info("Panier supprimé, taille du panier : " + listeCaddie.size());
+		log.info(DELETE_CADDIE, listeCaddie.size());
 	}
-
 
 	/**
 	 * Récupère une liste de Panier appartenant à un User
@@ -118,16 +128,29 @@ public class MagasinRestController {
 	@GetMapping(path="/getListPanier", produces= "application/json")
 	public List<Panier> restore(int idUser) {
 
-		Account hUser = hUserService.findByIdUser(idUser).get();
+		Account hUser = hUserService.findByIdUser(idUser);
 
 		// Récupération de la liste de panier dans la BDD 
 		List<Panier> listeCaddie = hPanierService.setPrixListPanier(hUser);	
 
-		@SuppressWarnings("unused")
-		Integer prixTotal = hPanierService.totalPanier(hUser.getIdUser());
-
-		log.info("Panier récupéré - taille du panier : " + listeCaddie.size() + ", du user : " + hUser);
+		log.info(GET_PANIER, listeCaddie.size() + SPECIFIC_USER ,hUser);
 
 		return listeCaddie;
+	}
+	
+	/**
+	 * Permet de supprimer un article sauvegarder par un User dans la base de données Panier
+	 * @param panier {@link Panier}
+	 */
+	@DeleteMapping(path="/removeArticle")
+	// récupère grâce  pathVariable l'idArticle 
+	public void removeBDD(@RequestBody Panier panier) {
+
+		Account hUser = panier.getUser();
+		int idArticle = panier.getArticle().getIdArticle(); 
+
+		hPanierService.removeArticle(idArticle, hUser);
+
+		log.info(DELETE_ARTICLE, idArticle);
 	}
 }

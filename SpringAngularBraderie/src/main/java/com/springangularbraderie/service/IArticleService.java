@@ -6,7 +6,7 @@ package com.springangularbraderie.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.springangularbraderie.model.Article;
+import com.springangularbraderie.entity.Article;
 
 /**
  * @author JRSS
@@ -26,6 +26,6 @@ public interface IArticleService {
 	 * @param idArticle {@link Integer}
 	 * @return list Panier {@link Optional} {@link Article}
 	 */
-	public Optional<Article> getArticle(int idArticle);
+	public Article getArticle(int idArticle);
 
 }

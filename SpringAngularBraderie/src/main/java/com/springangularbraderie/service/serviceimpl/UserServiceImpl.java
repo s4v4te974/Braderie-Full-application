@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springangularbraderie.model.Account;
+import com.springangularbraderie.entity.Account;
 import com.springangularbraderie.repository.IUserRep;
 import com.springangularbraderie.service.IUserService;
 
@@ -43,7 +43,13 @@ public class UserServiceImpl implements IUserService{
 	 * @param user {@link Integer}
 	 * @return Utilisateur {@link Account}
 	 */
-	public Optional<Account> findByIdUser(int iduser) {
-		return hUserRep.findById(iduser);
+	public Account findByIdUser(int iduser) {
+		
+		Optional<Account> accountFind = hUserRep.findById(iduser);
+		if(accountFind.isPresent()) {
+			return accountFind.get();
+		}else {
+			return null;
+		}
 	}
 }
