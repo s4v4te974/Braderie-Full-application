@@ -1,23 +1,28 @@
-// jenkins top level mandatory
-pipeline{
-    // determine in which environement we run (multi cluster or else)
-    agent any
 
-    // determine all the step of our build
-    stages{
-        stage("build"){
+pipeline {
+    agent any
+    tools {
+        maven 'Maven 3.3.9'
+        jdk 'jdk8'
+    }
+    stages {
+        stage ('Initialize') {
             steps {
-                echo "build"
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                '''
             }
         }
-        stage("test"){
-             steps {
-                echo "test"
+
+        stage ('Build') {
+            steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true install' 
             }
-        }
-        stage("deploy"){
-              steps {
-                echo "deploy"
+            post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml' 
+                }
             }
         }
     }
