@@ -6,6 +6,7 @@ services:
   postgresql:
     
     image: 'postgres:14-alpine'
+
     ports: 
       - "5432:5432"
     #Indique l'endroit de sauvegarde pour la peristance des données
@@ -16,13 +17,14 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=afpa123
-    restart: always
+#    restart: always
   
   #definit les applications qui seront utiliser dans notre container
   #ceux ci doivent avoir un dockerfile
   #container de la base de données
   app:
     #definir un nom à l'application
+
     build: ./
     container_name: braderie
     
@@ -44,7 +46,8 @@ services:
     - POSTGRES_USER=lab
     - POSTGRES_DB=braderie
     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    restart: always
+#    restart: always
+
 
 volumes:
   db-data: {}

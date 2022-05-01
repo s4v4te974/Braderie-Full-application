@@ -1,0 +1,47 @@
+// groovy script
+CODE_CHANGES = getGitChanges()
+// jenkins top level mandatory
+pipeline{
+    // determine in which environement we run (multi cluster or else)
+    agent any
+    // determine all the step of our build
+    stages{
+        stage("build"){
+             // imagine you want to run tests only on your branch
+            when{
+                expression{
+                    BRANCH_NAME == 'dev' && CODE_CHANGES == true
+                }
+            steps {
+                echo "build"
+            }
+        }
+        stage("test"){
+            // imagine you want to run tests only on your branch
+            when{
+                expression{
+                    BRANCH_NAME == 'dev' || BRANCH_NAME == 'master'
+                }
+            }
+            steps {
+                echo "test"
+            }
+        }
+        stage("deploy"){
+              steps {
+                echo "deploy"
+            }
+        }
+	// do after all steps 
+	post{
+	     always{
+		// will be always executed 
+	    }
+	    success{
+        // will be executed in case of success    
+	    }
+        failure{
+        // will be executed in case of failure
+        }
+    }
+}
