@@ -5,7 +5,8 @@ version: "3.1"
 services:
   postgresql:
     
-    image: postgres
+    image: 'postgres:14-alpine'
+
     ports: 
       - "5432:5432"
     #Indique l'endroit de sauvegarde pour la peristance des données
@@ -23,10 +24,12 @@ services:
   #container de la base de données
   app:
     #definir un nom à l'application
-    container_name: springbootapp
+
+    build: ./
+    container_name: braderie
     
     #definit le nom de l'image
-    image: springangularbraderie:latest
+    image: braderie:latest
     
     #spécifier le port
     ports:
@@ -44,6 +47,7 @@ services:
     - POSTGRES_DB=braderie
     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 #    restart: always
+
 
 volumes:
   db-data: {}
