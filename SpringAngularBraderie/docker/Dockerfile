@@ -1,5 +1,5 @@
 #Permet d'indiquer l'images qui sera utiliser pour la construction de notre container
-FROM openjdk:8-jdk-alpine
+FROM adoptopenjdk/openjdk8:ubi
 
 #permet d'exposer un port 
 EXPOSE 9000
