@@ -10,8 +10,10 @@ pipeline {
 		        
         		mavenSettingsConfig: 'my-maven-settings' // (3)
     			)	
+    			{
+    				sh 'mvn clean verify'
+				}
     			
-    			sh 'mvn clean verify'
             
             post {
                 success {
