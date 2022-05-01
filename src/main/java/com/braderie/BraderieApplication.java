@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 @SpringBootApplication
-public class SpringAngularBraderieApplication {
+public class BraderieApplication {
 	
 	
 	@Bean
@@ -33,7 +33,7 @@ public class SpringAngularBraderieApplication {
 	 * @param args {@link String}
 	 */
 	public static void main(String[] args) {
-		SpringApplication.run(SpringAngularBraderieApplication.class, args);
+		SpringApplication.run(BraderieApplication.class, args);
 	}
 
 }
