@@ -15,6 +15,6 @@ import com.braderie.entity.Article;
  */
 
 @Repository
-public interface IArticleRep extends JpaRepository<Article, Integer> {
+public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
 }

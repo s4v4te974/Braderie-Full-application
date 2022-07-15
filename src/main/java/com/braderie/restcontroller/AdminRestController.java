@@ -32,47 +32,19 @@ public class AdminRestController {
 	@Autowired
 	PanierServiceImpl panierService;
 
-	/**
-	 * Permet de persister un article
-	 * verifier que l'article n'existe pas déjà
-	 * 
-	 * @param article {@link Article}
-	 * @return article {@link Article}
-	 */
-
 	@PostMapping(path = "/createArticle", consumes = "application/json")
 	public Article createArticle(@RequestBody Article article) {
-
 		return adminService.createArticleAdmin(article);
-
 	}
 
-	/**
-	 * permet d'updater les attributs d'un article
-	 * 
-	 * @param article {@link Article}
-	 * @return article {@link Article}
-	 */
 	@PutMapping(path = "/updateArticle")
 	public Article updateArticle(@RequestBody Article article) {
-
 		return adminService.updateArticleAdmin(article);
-
 	}
 
-	/**
-	 * Permet de supprimer un article de la base de données
-	 * 
-	 * @param idArticle {@link Article}
-	 */
 	@DeleteMapping(path = "/removeAdmin/{id}")
 	public void deleteArticle(@PathVariable("id") Integer idArticle) {
-
-		// supprimer les lignes de panier qui ont le meme ID
-
 		adminService.deleteArticle(idArticle);
-
 		adminService.removeArticleAdmin(idArticle);
-
 	}
 }

@@ -13,7 +13,7 @@ import com.braderie.entity.Article;
  * Interface de ArticleService
  */
 
-public interface IArticleService {
+public interface ArticleService {
 	
 	/**
 	 * Permet de retourner la liste des articles

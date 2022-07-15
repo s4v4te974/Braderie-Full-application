@@ -32,28 +32,16 @@ public class Article implements Serializable {
     
     private static final long serialVersionUID = -6070679086343208662L;
 
-    /**
-     * identifiant Article {@link Integer}
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idArticle;
     
-    /**
-     * Description de l'article {@link String}
-     */
      @Column(nullable = false, length = 20)
     private String description;
     
-     /**
-      * Marque de l'article {@link String}
-      */
      @Column(nullable = false, length = 15)
     private String marque;
     
-     /**
-      * prix de l'article {@link Integer}
-      */
      @Column(nullable = false, length = 5)
     private int prix;
 }

@@ -31,35 +31,19 @@ public class Account implements Serializable {
     
     private static final long serialVersionUID = -6417274757131465118L;
     
-    /**
-     * identifiant User {@link Integer}
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUser;
     
-    /**
-     * Login Utilisateur {@link String}
-     */
     @Column(nullable = false, length = 10)
     private String login;
     
-    /**
-     * Mot de passe Utilisateur {@link String}
-     */
     @Column(nullable = false, length = 20)
     private String pass;
     
-    /**
-     * Nombre de connexion de l'utilisateur {@link Integer}
-     */
     @Column(nullable = true, length = 100)
     private int nbConnexion;
     
-    /**
-     * Role de l'utilisateur 
-     * permet de determiner son niveau d'accessibilité à l'application {@link String}
-     */
     @Column(nullable = false, length = 10)
     private String role;
     

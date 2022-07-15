@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.braderie.entity.Account;
-import com.braderie.service.IArticleService;
-import com.braderie.service.IUserService;
+import com.braderie.service.ArticleService;
+import com.braderie.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,16 +30,11 @@ public class UserRestController {
 	private static final String CURRENT_ACCOUNT = "user authentifié : {} ";
 
 	@Autowired
-	IUserService hUserService;
+	UserService hUserService;
 	
 	@Autowired
-	IArticleService hArticleService;
+	ArticleService hArticleService;
 
-	/**
-	 * Permet de logger un User
-	 * @param user {@link Account}
-	 * @return User {@link Account}
-	 */
 	@PostMapping(path="/user", produces= "application/json")
 	public Account getCurrentConnectUser(@RequestBody Account user) {
 		
