@@ -17,8 +17,6 @@ import com.braderie.entity.Article;
 import com.braderie.service.serviceimpl.AdminServiceImpl;
 import com.braderie.service.serviceimpl.PanierServiceImpl;
 
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-
 /**
  * @author JRSS Restful Admin
  */
@@ -35,7 +33,6 @@ public class AdminRestController {
 	PanierServiceImpl panierService;
 
 	@PostMapping(path = "/createArticle", consumes = "application/json")
-	@ApiResponse
 	public Article createArticle(@RequestBody Article article) {
 		return adminService.createArticleAdmin(article);
 	}
