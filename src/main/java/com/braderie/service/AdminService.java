@@ -9,7 +9,7 @@ import com.braderie.entity.Article;
  * @author JRSS
  * Manipulation des Articles
  */
-public interface IAdminService {
+public interface AdminService {
 
 	Article updateArticleAdmin(Article article);
 	

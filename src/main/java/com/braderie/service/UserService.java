@@ -9,7 +9,7 @@ import com.braderie.entity.Account;
  * @author JRSS
  * Interface de userService
  */
-public interface IUserService {
+public interface UserService {
 	
 	/**
 	 * permet de logger un User

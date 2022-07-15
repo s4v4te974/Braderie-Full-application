@@ -20,7 +20,7 @@ import com.braderie.entity.Panier;
  */
 
 @Repository
-public interface IPanierRep extends JpaRepository<Panier, Integer> {
+public interface PanierRepository extends JpaRepository<Panier, Integer> {
 	
 	/**
 	 * Permet de recuperer la liste Panier dans la Base de données

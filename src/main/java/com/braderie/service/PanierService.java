@@ -15,7 +15,7 @@ import com.braderie.entity.Panier;
  * Interface de panierService
  */
 
-public interface IPanierService {
+public interface PanierService {
 	
 	/**
 	 * permet d'inserer un article dans la base de données

@@ -13,7 +13,7 @@ import com.braderie.entity.Account;
  * Repository de gestion des User/account
  */
 @Repository
-public interface IUserRep extends JpaRepository<Account, Integer> {
+public interface UserRepository extends JpaRepository<Account, Integer> {
 	
 	/**
 	 * permet de chercher dans la base de données un {@link Account} lié au credential 
